@@ -15,6 +15,7 @@ CREATE TABLE `projects` (
   `title` varchar(255) NOT NULL,
   `source_language` varchar(255),
   `target_language` varchar(255),
+  `planned_date` datetime, -- This will determine on which day the task is shown
   `start_date` datetime,
   `due_date` datetime,
   `word_count` int,
