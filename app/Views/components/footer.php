@@ -1,0 +1,2 @@
+<script language="javascript" src="<?php echo base_url(); ?>/assets/vendors/js/vendor.bundle.base.js?token=<?php echo CONF_asset_version; ?>"></script>
+<script language="javascript" src="<?php echo base_url(); ?>/assets/js/misc.js?token=<?php echo CONF_asset_version; ?>"></script>

@@ -126,3 +126,4 @@ nb-configuration.xml
 /.phpunit.*.cache
 
 .github
+other/corona-free-dark-bootstrap-admin-template-1.0.0
