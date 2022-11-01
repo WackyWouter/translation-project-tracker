@@ -10,7 +10,7 @@
 
     <title><?php echo $title; ?></title>
 
-    <link rel="stylesheet" href="<?php echo base_url("/assets/css/style.css") . "?token=" . CONF_asset_version; ?>" />
+    <link rel="stylesheet" href="<?php echo base_url("/assets/css/bootstrap.css") . "?token=" . CONF_asset_version; ?>" />
     <!-- plugins:css -->
     <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/mdi/css/materialdesignicons.min.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/css/vendor.bundle.base.css") . "?token=" . CONF_asset_version; ?>" />

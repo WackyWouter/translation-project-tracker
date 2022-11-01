@@ -35,10 +35,17 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Auth::index');
-$routes->get('/register', 'Auth::register');
-$routes->post('/register/newUser', 'Auth::createNewUser');
-$routes->get('/dashboard', 'Dashboard::index');
+$routes->get('/', 'Auth::index', ['as' => 'loginPage']);
+$routes->post('/login', 'Auth::login', ['as' => 'login']);
+$routes->get('/register', 'Auth::register', ['as' => 'register']);
+$routes->post('/register/newUser', 'Auth::createNewUser', ['as' => 'newUser']);
+$routes->get('/logout', 'Auth::logout', ['as' => 'logout']);
+
+$routes->group('/dashboard', ["filter" => "authenticate"], function ($routes) {
+    $routes->get('home', 'Dashboard::index', ['as' => 'dashboard']);
+});
+
+
 
 /*
  * --------------------------------------------------------------------

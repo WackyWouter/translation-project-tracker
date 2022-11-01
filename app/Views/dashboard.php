@@ -5,6 +5,10 @@
         logged in
     </div>
 
+    <br>
+    <br>
+    <a href="/logout">Logout</a>
+
     <?php echo $footer ?>
 
 </body>
