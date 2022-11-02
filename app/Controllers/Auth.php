@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UsersModal;
+use App\Models\UsersModel;
 
 class Auth extends BaseController
 {
@@ -26,7 +26,7 @@ class Auth extends BaseController
 
     public function login()
     {
-        $usersModel = model(UsersModal::class);
+        $usersModel = model(UsersModel::class);
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
@@ -90,7 +90,7 @@ class Auth extends BaseController
     public function createNewUser()
     {
 
-        $usersModel = model(UsersModal::class);
+        $usersModel = model(UsersModel::class);
 
         $uuid4 = $this->generateUuid();
         $username = $this->request->getPost('username');
