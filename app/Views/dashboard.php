@@ -14,5 +14,6 @@
         </div>
     </div>
     <?php echo $footer ?>
+    <script language="javascript" src="<?php echo base_url(); ?>/assets/js/dashboard.js?token=<?php echo CONF_asset_version; ?>"></script>
 
 </body>

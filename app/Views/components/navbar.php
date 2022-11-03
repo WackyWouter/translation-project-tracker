@@ -42,15 +42,14 @@
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item">
+                    <a id="logout" class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
                             <div class="preview-icon bg-dark rounded-circle">
                                 <i class="mdi mdi-logout text-danger"></i>
                             </div>
                         </div>
                         <div class="preview-item-content">
-                            <p id="logout" class="preview-subject mb-1">
-                                <!-- <a href="/logout">Log out</a> -->
+                            <p class="preview-subject mb-1">
                                 Log out
                             </p>
                         </div>

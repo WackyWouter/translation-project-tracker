@@ -26,3 +26,17 @@
         width: 100%;
     }
 }
+
+.badge-secondary {
+    background: #ec0868;
+}
+
+.navbar-brand {
+    color: #0d6efd;
+}
+
+.table-white > tbody > tr:nth-of-type(odd) > *,
+.table-white > tbody > tr:nth-of-type(even) > * {
+    --bs-table-accent-bg: rgba(0, 0, 0, 0.05);
+    color: white;
+}
