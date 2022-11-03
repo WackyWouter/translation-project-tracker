@@ -40,3 +40,18 @@
     --bs-table-accent-bg: rgba(0, 0, 0, 0.05);
     color: white;
 }
+
+.auth .sign-up {
+    margin-top: 0px;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+html,
+body,
+.container-scroller {
+    height: 100%;
+}
