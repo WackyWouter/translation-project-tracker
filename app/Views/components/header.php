@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/mdi/css/materialdesignicons.min.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/css/vendor.bundle.base.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css") . "?token=" . CONF_asset_version; ?>" />
+    <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/css/bootstrap.css") . "?token=" . CONF_asset_version; ?>" />
 
     <!-- Custom CSS -->

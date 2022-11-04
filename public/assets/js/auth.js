@@ -1,4 +1,16 @@
-$(document).ready(function () {});
+$(document).ready(function () {
+    $(".last-login-input").on("keydown", function search(e) {
+        if (e.keyCode == 13) {
+            login();
+        }
+    });
+
+    $(".last-register-input").on("keydown", function search(e) {
+        if (e.keyCode == 13) {
+            createNewUser();
+        }
+    });
+});
 
 function login() {
     let data = $("#loginForm").serializeArray();
@@ -37,7 +49,7 @@ function createNewUser() {
     $(".form-control").removeClass("is-invalid");
     $(".invalid-feedback").html("");
 
-    if (validatieNewUser()) {
+    if (validateNewUser()) {
         $.ajax({
             type: "POST",
             url: "/register/newUser",
@@ -68,7 +80,7 @@ const validateEmail = (email) => {
     );
 };
 
-function validatieNewUser() {
+function validateNewUser() {
     let noErrorFound = true;
     const username = $("#username").val();
     const email = $("#email").val();

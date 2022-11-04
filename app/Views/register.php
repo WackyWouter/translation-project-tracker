@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="form-group pwdField">
                                     <label>Confirm Password<span style="color:red">*</span></label>
-                                    <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control p_input">
+                                    <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control p_input last-register-input">
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between">
                                     <div class="form-check">

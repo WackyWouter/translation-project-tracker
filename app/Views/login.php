@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="form-group pwdField">
                                     <label>Password <span style="color:red">*</span></label>
-                                    <input type="password" id="password" name="password" class="form-control p_input">
+                                    <input type="password" id="password" name="password" class="form-control p_input last-login-input">
                                     <span class="invalid-feedback"></span>
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between">

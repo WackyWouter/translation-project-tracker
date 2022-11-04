@@ -28,13 +28,14 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Title</th>
-                                                    <th>Source Language</th>
-                                                    <th>Target Language</th>
+                                                    <th>Source</th>
+                                                    <th>Target</th>
                                                     <th>Planned Date</th>
                                                     <th>Start Date</th>
                                                     <th>Due Date</th>
                                                     <th>Word Count</th>
                                                     <th>Status</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -50,15 +51,20 @@
                                                             <td><?php echo date('d-m-Y H:i:s', strtotime($project['start_date'])); ?></td>
                                                             <td><?php echo date('d-m-Y H:i:s', strtotime($project['due_date'])); ?></td>
                                                             <td><?php echo $project['word_count']; ?></td>
-                                                            <td><label class="badge badge-<?php echo $project['class']; ?>"><?php echo $project['name']; ?></label></td>
+                                                            <td><button class="btn btn-outline-<?php echo $project['class']; ?> btn-fw"><?php echo $project['name']; ?></button></td>
+                                                            <td>
+                                                                <button class="btn btn-outline-danger custom-icon-btn">
+                                                                    <i class="mdi mdi-delete text-danger"></i>
+                                                                </button>
+                                                                <button class="btn btn-outline-info custom-icon-btn ml-1-5">
+                                                                    <i class="mdi mdi-pencil text-info"></i>
+                                                                </button>
+                                                            </td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endif; ?>
                                             </tbody>
                                         </table>
-                                        <?php if (!isset($uncompletedProjects) || (isset($uncompletedProjects) && count($uncompletedProjects) == 0)) : ?>
-                                            <p class="text-center mt-3 mb-0">No uncompleted projects found.</p>
-                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -74,19 +80,19 @@
                                         All Projects that have been completed.
                                     </p>
                                     <div class="table-responsive">
-
-                                        <table class="table table-white projects-datatable">
+                                        <table id="completedProjects" class="table table-white projects-datatable">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Title</th>
-                                                    <th>Source Language</th>
-                                                    <th>Target Language</th>
+                                                    <th>Source</th>
+                                                    <th>Target</th>
                                                     <th>Planned Date</th>
                                                     <th>Start Date</th>
                                                     <th>Due Date</th>
                                                     <th>Word Count</th>
                                                     <th>Status</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -102,15 +108,20 @@
                                                             <td><?php echo date('d-m-Y H:i:s', strtotime($project['start_date'])); ?></td>
                                                             <td><?php echo date('d-m-Y H:i:s', strtotime($project['due_date'])); ?></td>
                                                             <td><?php echo $project['word_count']; ?></td>
-                                                            <td><label class="badge badge-<?php echo $project['class']; ?>"><?php echo $project['name']; ?></label></td>
+                                                            <td><button class="btn btn-outline-<?php echo $project['class']; ?> btn-fw"><?php echo $project['name']; ?></button></td>
+                                                            <td>
+                                                                <button class="btn btn-outline-danger custom-icon-btn">
+                                                                    <i class="mdi mdi-delete text-danger"></i>
+                                                                </button>
+                                                                <button class="btn btn-outline-info custom-icon-btn ml-1-5">
+                                                                    <i class="mdi mdi-pencil text-info"></i>
+                                                                </button>
+                                                            </td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 <?php endif; ?>
                                             </tbody>
                                         </table>
-                                        <?php if (!isset($completedProjects) || (isset($completedProjects) && count($completedProjects) == 0)) : ?>
-                                            <p class="text-center mt-3 mb-0">No uncompleted projects found.</p>
-                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
