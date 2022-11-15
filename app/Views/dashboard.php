@@ -107,7 +107,7 @@
                                                             <td><?php echo $project['word_count']; ?></td>
                                                             <td><button class="btn btn-outline-<?php echo $project['class']; ?> btn-fw"><?php echo $project['name']; ?></button></td>
                                                             <td>
-                                                                <button class="btn btn-outline-danger custom-icon-btn">
+                                                                <button class="btn btn-outline-danger custom-icon-btn" onclick="deleteProject('<?php echo $project['uuid']; ?>')">
                                                                     <i class="mdi mdi-delete text-danger"></i>
                                                                 </button>
                                                                 <button class="btn btn-outline-info custom-icon-btn ml-1-5">

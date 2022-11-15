@@ -15,6 +15,14 @@ class ProjectsModel extends Model
         return $result;
     }
 
+    function deleteProject($projectUuid, $userUuid)
+    {
+        $query = $this->db->table($this->table)
+            ->where('uuid =', $projectUuid)
+            ->where('user_uuid =', $userUuid)
+            ->delete();
+    }
+
     function getAllUncompletedProjects($userUuid)
     {
         $query = $this->db->table($this->table)

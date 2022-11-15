@@ -153,6 +153,16 @@ class Projects extends BaseController
         }
     }
 
+    public function deleteProject()
+    {
+        $projectId = $this->request->getGet('projectId');
+        $projectsModel = model(ProjectsModel::class);
+        $projectsModel->deleteProject($projectId, $this->view_data["userUuid"]);
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['status' => 'ok']);
+    }
+
     private function validateDate($date)
     {
         $dateSplit = explode('-', $date);
