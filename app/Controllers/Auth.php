@@ -89,10 +89,10 @@ class Auth extends BaseController
 
     public function createNewUser()
     {
-
+        helper('usefull');
         $usersModel = model(UsersModel::class);
 
-        $uuid4 = $this->generateUuid();
+        $uuid4 = generateUuid(); // Can be found in Helpers/usefull_helper
         $username = $this->request->getPost('username');
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');

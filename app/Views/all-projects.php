@@ -1,6 +1,4 @@
-<?php echo $header;
-// var_dump($test); 
-?>
+<?php echo $header; ?>
 
 <body>
     <div class="container-scroller">
@@ -12,6 +10,7 @@
                 <div class="content-wrapper">
                     <div class="page-header">
                         <h3 class="page-title">All Projects</h3>
+                        <a href="/dashboard/newProject" id="newProject" class="btn btn-outline-info btn-fw">New Project</a>
                     </div>
 
                     <div class="row">
@@ -47,9 +46,9 @@
                                                             <td><?php echo $project['title']; ?></td>
                                                             <td><?php echo $project['source_language']; ?></td>
                                                             <td><?php echo $project['target_language']; ?></td>
-                                                            <td><?php echo date('d-m-Y H:i:s', strtotime($project['planned_date'])); ?></td>
-                                                            <td><?php echo date('d-m-Y H:i:s', strtotime($project['start_date'])); ?></td>
-                                                            <td><?php echo date('d-m-Y H:i:s', strtotime($project['due_date'])); ?></td>
+                                                            <td><?php echo date('d-m-Y H:i', strtotime($project['planned_date'])); ?></td>
+                                                            <td><?php echo date('d-m-Y H:i', strtotime($project['start_date'])); ?></td>
+                                                            <td><?php echo date('d-m-Y H:i', strtotime($project['due_date'])); ?></td>
                                                             <td><?php echo $project['word_count']; ?></td>
                                                             <td><button class="btn btn-outline-<?php echo $project['class']; ?> btn-fw"><?php echo $project['name']; ?></button></td>
                                                             <td>
@@ -133,6 +132,6 @@
     </div>
     <?php echo $footer ?>
 
-    <script language="javascript" src="<?php echo base_url(); ?>/assets/js/dashboard.js?token=<?php echo CONF_asset_version; ?>"></script>
+    <script language="javascript" src="<?php echo base_url(); ?>/assets/js/project.js?token=<?php echo CONF_asset_version; ?>"></script>
 
 </body>

@@ -43,8 +43,10 @@ $routes->get('/logout', 'Auth::logout', ['as' => 'logout']);
 
 $routes->group('/dashboard', ["filter" => "authenticate"], function ($routes) {
     $routes->get('home', 'Dashboard::index', ['as' => 'dashboard']);
-    $routes->get('allProjects', 'Dashboard::allProjects', ['as' => 'allProjects']);
+    $routes->get('allProjects', 'Projects::index', ['as' => 'allProjects']);
     $routes->get('account', 'Account::index', ['as' => 'account']);
+    $routes->get('newProject', 'Projects::newProject', ['as' => 'newProject']);
+    $routes->post('saveProject', 'Projects::saveProject', ['as' => 'saveProject']);
 });
 
 
