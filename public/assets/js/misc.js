@@ -1,6 +1,10 @@
 (function ($) {
     "use strict";
     $(function () {
+        $("#logout").click(function () {
+            window.location.href = "/logout";
+        });
+
         //checkbox and radios
         $(".form-check label,.form-radio label").append(
             '<i class="input-helper"></i>'

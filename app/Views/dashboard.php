@@ -9,7 +9,17 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="page-header">
-                        <h3 class="page-title"><?php echo $date == date('Y-m-d') ? 'Today' : date('l, jS F Y', strtotime($date)) ?></h3>
+                        <div class="date-buttons">
+                            <button class="btn btn-outline-warning custom-icon-btn" onclick="moveOneDay('backward')">
+                                <i class="mdi mdi-chevron-left text-warning"></i>
+                            </button>
+                            <h3 class="page-title"><?php echo $date == date('Y-m-d') ? 'Today' : date('l, jS F Y', strtotime($date)) ?></h3>
+                            <button class="btn btn-outline-warning custom-icon-btn" onclick="moveOneDay('forward')">
+                                <i class="mdi mdi-chevron-right text-warning"></i>
+                            </button>
+                        </div>
+                        <a href="/dashboard/newProject" id="newProject" class="btn btn-outline-info btn-fw">New Project</a>
+
                     </div>
 
                     <div class="row">
@@ -43,8 +53,9 @@
                                     <form action="/dashboard/home" method="get" id="dateForm">
                                         <h4 class="card-title">Date</h4>
                                         <div class="d-flex">
+                                            <input type="hidden" id="oldDate" name="oldDate" class="form-control" value="<?php echo date('Y-m-d', strtotime($date)) ?>">
+
                                             <div id="datepicker-popup" class="input-group date datepicker">
-                                                <input type="hidden" id="oldDate" name="oldDate" class="form-control" value="<?php echo date('Y-m-d', strtotime($date)) ?>">
                                                 <input type="text" id="dateInput" name="dateInput" class="form-control">
                                                 <span class=" input-group-addon input-group-append border-left">
                                                     <span class="mdi mdi-calendar input-group-text"></span>

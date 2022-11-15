@@ -1,10 +1,6 @@
 (function ($) {
     "use strict";
     $(function () {
-        $("#logout").click(function () {
-            window.location.href = "/logout";
-        });
-
         const date = new Date(Date.parse($("#oldDate").val()));
 
         if ($("#datepicker-popup").length) {
@@ -12,6 +8,7 @@
                 autoclose: true,
                 todayHighlight: true,
                 todayBtn: true,
+                format: "dd-mm-yyyy",
             });
             $("#datepicker-popup").datepicker("update", date);
         }
@@ -95,3 +92,17 @@
         });
     });
 })(jQuery);
+
+function moveOneDay(direction) {
+    const date = new Date(Date.parse($("#oldDate").val()));
+    let newDate;
+
+    if (direction == "forward") {
+        newDate = new Date(date.getTime() + 86400000); // +1 day
+    } else {
+        newDate = new Date(date.getTime() - 86400000); // -1 day
+    }
+
+    $("#datepicker-popup").datepicker("update", newDate);
+    $("#dateForm").submit();
+}

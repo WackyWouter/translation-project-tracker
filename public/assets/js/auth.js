@@ -48,6 +48,7 @@ function createNewUser() {
     // Empty old errors
     $(".form-control").removeClass("is-invalid");
     $(".invalid-feedback").html("");
+    $(".main-error").html("");
 
     if (validateNewUser()) {
         $.ajax({
