@@ -10,7 +10,7 @@
                 <div class="content-wrapper">
                     <div class="page-header">
                         <h3 class="page-title">All Projects</h3>
-                        <a href="/dashboard/newProject" id="newProject" class="btn btn-outline-info btn-fw">New Project</a>
+                        <a href="/dashboard/newProject?prevPage=all-projects" id="newProject" class="btn btn-outline-info btn-fw">New Project</a>
                     </div>
 
                     <div class="row">
@@ -55,9 +55,9 @@
                                                                 <button class="btn btn-outline-danger custom-icon-btn" onclick="deleteProject('<?php echo $project['uuid']; ?>')">
                                                                     <i class="mdi mdi-delete text-danger"></i>
                                                                 </button>
-                                                                <button class="btn btn-outline-info custom-icon-btn ml-1-5">
+                                                                <a class="btn btn-outline-info custom-icon-btn ml-1-5" href="/dashboard/editProject/<?php echo $project['uuid']; ?>?prevPage=all-projects">
                                                                     <i class="mdi mdi-pencil text-info"></i>
-                                                                </button>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -112,9 +112,9 @@
                                                                 <button class="btn btn-outline-danger custom-icon-btn">
                                                                     <i class="mdi mdi-delete text-danger"></i>
                                                                 </button>
-                                                                <button class="btn btn-outline-info custom-icon-btn ml-1-5">
+                                                                <a class="btn btn-outline-info custom-icon-btn ml-1-5" href="/dashboard/editProject/<?php echo $project['uuid']; ?>?prevPage=all-projects">
                                                                     <i class="mdi mdi-pencil text-info"></i>
-                                                                </button>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>

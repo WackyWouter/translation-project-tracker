@@ -46,7 +46,12 @@ class Projects extends BaseController
         $statusModel = model(StatusModel::class);
         $statusses = $statusModel->getAllStatuses();
 
+        $prevPage = $this->request->getGet('prevPage');
+        $dateInput = $this->request->getGet('dateInput');
+
         $this->view_data['statusses'] = $statusses;
+        $this->view_data['prevPage'] = $prevPage;
+        $this->view_data['dateInput'] = $dateInput;
 
         $header = view('components/header', $this->view_data);
         $this->view_data['header'] = $header;
@@ -57,11 +62,43 @@ class Projects extends BaseController
         $footer = view('components/footer', $this->view_data);
         $this->view_data['footer'] = $footer;
 
-        return view('new-project', $this->view_data);
+        return view('project', $this->view_data);
+    }
+
+    public function editProject($projectUuid)
+    {
+        $this->view_data['activeNav'] = '';
+        $this->view_data["title"] = 'Edit Project';
+
+        $statusModel = model(StatusModel::class);
+        $projectsModel = model(ProjectsModel::class);
+
+        $statusses = $statusModel->getAllStatuses();
+        $project = $projectsModel->getProjectByUuid($projectUuid, $this->view_data["userUuid"]);
+
+        $prevPage = $this->request->getGet('prevPage');
+        $dateInput = $this->request->getGet('dateInput');
+
+        $this->view_data['statusses'] = $statusses;
+        $this->view_data['project'] = $project;
+        $this->view_data['prevPage'] = $prevPage;
+        $this->view_data['dateInput'] = $dateInput;
+
+        $header = view('components/header', $this->view_data);
+        $this->view_data['header'] = $header;
+
+        $navbar = view('components/navbar', $this->view_data);
+        $this->view_data['navbar'] = $navbar;
+
+        $footer = view('components/footer', $this->view_data);
+        $this->view_data['footer'] = $footer;
+
+        return view('project', $this->view_data);
     }
 
     public function saveProject()
     {
+        $projectUuid = $this->request->getPost('projectUuid');
         $projectTitle = trim($this->request->getPost('projectTitle'));
         $status = $this->request->getPost('status');
         $sourceLang = trim($this->request->getPost('sourceLang'));
@@ -132,21 +169,38 @@ class Projects extends BaseController
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode(['status' => 'nok', 'errors' => $errors]);
         } else {
-            helper('usefull');
 
-            $projectsModel = model(ProjectsModel::class);
-            $projectsModel->insertProject([
-                'uuid'              => generateUuid(), // Can be found in Helpers/usefull_helper
-                'user_uuid'         => $this->view_data["userUuid"],
-                'title'             => $projectTitle,
-                'source_language'   => $sourceLang,
-                'target_language'   => $targetLang,
-                'planned_date'      => date('Y-m-d', strtotime($plannedDate)),
-                'start_date'        => date('Y-m-d', strtotime($startDate)),
-                'due_date'          => date('Y-m-d', strtotime($dueDate)),
-                'word_count'        => $wordCount,
-                'project_status'    => $status
-            ]);
+            // if no id is present then is a new project
+            if (strlen($projectUuid) == 0) {
+                helper('usefull');
+
+                $projectsModel = model(ProjectsModel::class);
+                $projectsModel->insertProject([
+                    'uuid'              => generateUuid(), // Can be found in Helpers/usefull_helper
+                    'user_uuid'         => $this->view_data["userUuid"],
+                    'title'             => $projectTitle,
+                    'source_language'   => $sourceLang,
+                    'target_language'   => $targetLang,
+                    'planned_date'      => date('Y-m-d', strtotime($plannedDate)),
+                    'start_date'        => date('Y-m-d', strtotime($startDate)),
+                    'due_date'          => date('Y-m-d', strtotime($dueDate)),
+                    'word_count'        => $wordCount,
+                    'project_status'    => $status
+                ]);
+            } else {
+
+                $projectsModel = model(ProjectsModel::class);
+                $projectsModel->updateProject($projectUuid, $this->view_data["userUuid"], [
+                    'title'             => $projectTitle,
+                    'source_language'   => $sourceLang,
+                    'target_language'   => $targetLang,
+                    'planned_date'      => date('Y-m-d', strtotime($plannedDate)),
+                    'start_date'        => date('Y-m-d', strtotime($startDate)),
+                    'due_date'          => date('Y-m-d', strtotime($dueDate)),
+                    'word_count'        => $wordCount,
+                    'project_status'    => $status
+                ]);
+            }
 
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode(['status' => 'ok']);

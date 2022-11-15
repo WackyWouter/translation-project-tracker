@@ -5,10 +5,26 @@ $(document).ready(function () {
         todayBtn: true,
         format: "dd-mm-yyyy",
     });
+
+    // Populate the date fields if possible
+    if ($("#oldStartDate").val().trim().length > 0) {
+        const startDate = new Date(Date.parse($("#oldStartDate").val()));
+        $("#start-datepicker-popup").datepicker("update", startDate);
+    }
+
+    if ($("#oldDueDate").val().trim().length > 0) {
+        const dueDate = new Date(Date.parse($("#oldDueDate").val()));
+        $("#due-datepicker-popup").datepicker("update", dueDate);
+    }
+
+    if ($("#oldPlannedDate").val().trim().length > 0) {
+        const plannedDate = new Date(Date.parse($("#oldPlannedDate").val()));
+        $("#planned-datepicker-popup").datepicker("update", plannedDate);
+    }
 });
 
 function saveProject() {
-    let data = $("#newProjectForm").serializeArray();
+    let data = $("#projectForm").serializeArray();
 
     // Empty old errors
     $(".form-control").removeClass("is-invalid");
@@ -24,7 +40,13 @@ function saveProject() {
             dataType: "JSON",
             success: function (data) {
                 if (data.status == "ok") {
-                    window.location.href = "/dashboard/home";
+                    if ($("#prevPage").val() == "dashboard") {
+                        window.location.href =
+                            "/dashboard/home?dateInput=" +
+                            $("#dateInput").val();
+                    } else {
+                        window.location.href = "/dashboard/allProjects";
+                    }
                 } else {
                     Object.keys(data.errors).forEach(function (key) {
                         $(key).find(".invalid-feedback").html(data.errors[key]);

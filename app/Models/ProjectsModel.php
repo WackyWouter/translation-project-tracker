@@ -11,16 +11,35 @@ class ProjectsModel extends Model
 
     function insertProject($data)
     {
-        $result = $this->db->table($this->table)->insert($data);
-        return $result;
+        $this->db->table($this->table)->insert($data);
+    }
+
+    function updateProject($projectUuid, $userUuid, $data)
+    {
+        $this->db->table($this->table)
+            ->where('uuid', $projectUuid)
+            ->where('user_uuid', $userUuid)
+            ->update($data);
     }
 
     function deleteProject($projectUuid, $userUuid)
     {
-        $query = $this->db->table($this->table)
+        $this->db->table($this->table)
             ->where('uuid =', $projectUuid)
             ->where('user_uuid =', $userUuid)
             ->delete();
+    }
+
+    function getProjectByUuid($projectUuid, $userUuid)
+    {
+        $query = $this->db->table($this->table)
+            ->select('projects.uuid, projects.user_uuid, projects.title, projects.source_language, projects.target_language, projects.planned_date, projects.start_date, projects.due_date, projects.word_count, projects.project_status, project_statusses.name, project_statusses.class')
+            ->where('uuid =', $projectUuid)
+            ->where('user_uuid =', $userUuid)
+            ->join('project_statusses', 'project_statusses.id = projects.project_status')
+            ->get(1);
+
+        return $query->getRowArray();
     }
 
     function getAllUncompletedProjects($userUuid)

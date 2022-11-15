@@ -18,7 +18,7 @@
                                 <i class="mdi mdi-chevron-right text-warning"></i>
                             </button>
                         </div>
-                        <a href="/dashboard/newProject" id="newProject" class="btn btn-outline-info btn-fw">New Project</a>
+                        <a href="/dashboard/newProject?prevPage=dashboard" id="newProject" class="btn btn-outline-info btn-fw">New Project</a>
 
                     </div>
 
@@ -110,9 +110,9 @@
                                                                 <button class="btn btn-outline-danger custom-icon-btn" onclick="deleteProject('<?php echo $project['uuid']; ?>')">
                                                                     <i class="mdi mdi-delete text-danger"></i>
                                                                 </button>
-                                                                <button class="btn btn-outline-info custom-icon-btn ml-1-5">
+                                                                <a class="btn btn-outline-info custom-icon-btn ml-1-5" href="/dashboard/editProject/<?php echo $project['uuid']; ?>?prevPage=dashboard&dateInput=<?php echo date('d-m-Y', strtotime($date)) ?>">
                                                                     <i class="mdi mdi-pencil text-info"></i>
-                                                                </button>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -164,9 +164,9 @@
                                                                 <button class="btn btn-outline-danger custom-icon-btn">
                                                                     <i class="mdi mdi-delete text-danger"></i>
                                                                 </button>
-                                                                <button class="btn btn-outline-info custom-icon-btn ml-1-5">
+                                                                <a class="btn btn-outline-info custom-icon-btn ml-1-5" href="/dashboard/editProject/<?php echo $project['uuid']; ?>?prevPage=dashboard&dateInput=<?php echo date('d-m-Y', strtotime($date)) ?>">
                                                                     <i class="mdi mdi-pencil text-info"></i>
-                                                                </button>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>
