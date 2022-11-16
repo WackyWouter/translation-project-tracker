@@ -17,12 +17,12 @@
             </li>
 
             <li class="nav-item dropdown border-left">
-                <a href="" id="profileDrop" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'profile') ? 'active' : '' ?>" data-toggle="dropdown">
-                    <div class="navbar-icon-item">
+                <a href="" id="profileDropdown" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'profile') ? 'active' : '' ?>" data-bs-toggle="dropdown">
+                    <div class="navbar-profile">
                         <div class="preview-icon bg-dark rounded-circle">
                             <i class="mdi mdi-account d-none d-sm-block text-primary"></i>
                         </div>
-                        <p class="mb-0 d-none d-sm-block navbar-icon-item-name">
+                        <p class="mb-0 d-none d-sm-block navbar-profile-name">
                             <?php echo $username ?>
                         </p>
                         <i class="mdi mdi-menu-down d-none d-sm-block"></i>
