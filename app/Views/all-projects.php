@@ -18,9 +18,6 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Uncompleted Projects</h4>
-                                    <p class="description">
-                                        All Projects that have yet to be completed.
-                                    </p>
                                     <div class="table-responsive">
                                         <table id="uncompletedProjects" class="table table-white projects-datatable">
                                             <thead>
@@ -86,9 +83,6 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Completed Projects</h4>
-                                    <p class="description">
-                                        All Projects that have been completed.
-                                    </p>
                                     <div class="table-responsive">
                                         <table id="completedProjects" class="table table-white projects-datatable">
                                             <thead>
@@ -154,6 +148,6 @@
     </div>
     <?php echo $footer ?>
 
-    <script language="javascript" src="<?php echo base_url(); ?>/assets/js/project.js?token=<?php echo CONF_asset_version; ?>"></script>
+    <script language="javascript" src="<?php echo base_url(); ?>/assets/js/dashboard.js?token=<?php echo CONF_asset_version; ?>"></script>
 
 </body>
