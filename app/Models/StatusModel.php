@@ -16,4 +16,13 @@ class StatusModel extends Model
 
         return $query->getResultArray();
     }
+
+    function doesIdExist($id)
+    {
+        $result = $this->db->table($this->table)
+            ->where(['id' => $id])
+            ->countAllResults();
+
+        return $result > 0;
+    }
 }

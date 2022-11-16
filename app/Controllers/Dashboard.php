@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ProjectsModel;
+use App\Models\StatusModel;
 
 class Dashboard extends BaseController
 {
@@ -24,7 +25,6 @@ class Dashboard extends BaseController
         $completedProjects = $projectsModel->getProjectsByDate($this->view_data["userUuid"], $date, true);
 
         $projects = array_merge($uncompletedProjects, $completedProjects);
-
 
         $totalWordCount = 0;
         $jobsDueToday = 0;
@@ -51,6 +51,10 @@ class Dashboard extends BaseController
             $languagePercentage[] = "<span class='text-primary'>$language</span> ($percentage%)";
         }
 
+        $statusModel = model(StatusModel::class);
+        $statusses = $statusModel->getAllStatuses();
+
+        $this->view_data['statusses'] = $statusses;
         $this->view_data['uncompletedProjects'] = $uncompletedProjects;
         $this->view_data['completedProjects'] = $completedProjects;
         $this->view_data['date'] = $date;

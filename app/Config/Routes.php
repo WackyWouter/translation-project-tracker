@@ -48,6 +48,7 @@ $routes->group('/dashboard', ["filter" => "authenticate"], function ($routes) {
     $routes->get('newProject', 'Projects::newProject', ['as' => 'newProject']);
     $routes->get('editProject/(:segment)', 'Projects::editProject/$1', ['as' => 'editProject']);
     $routes->post('saveProject', 'Projects::saveProject', ['as' => 'saveProject']);
+    $routes->get('updateStatus', 'Projects::updateStatus', ['as' => 'updateStatus']);
     $routes->get('deleteProject', 'Projects::deleteProject', ['as' => 'deleteProject']);
 });
 

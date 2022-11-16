@@ -23,6 +23,10 @@ class Projects extends BaseController
         $uncompletedProjects = $projectsModel->getAllUncompletedProjects($this->view_data["userUuid"]);
         $completedProjects = $projectsModel->getAllCompletedProjects($this->view_data["userUuid"]);
 
+        $statusModel = model(StatusModel::class);
+        $statusses = $statusModel->getAllStatuses();
+
+        $this->view_data['statusses'] = $statusses;
         $this->view_data['uncompletedProjects'] = $uncompletedProjects;
         $this->view_data['completedProjects'] = $completedProjects;
 
@@ -204,6 +208,27 @@ class Projects extends BaseController
 
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode(['status' => 'ok']);
+        }
+    }
+
+    public function updateStatus()
+    {
+        $projectUuid = $this->request->getGet('projectUuid');
+        $statusId = $this->request->getGet('statusId');
+
+        $projectsModel = model(ProjectsModel::class);
+        $statusModel = model(StatusModel::class);
+
+        if ($statusModel->doesIdExist($statusId)) {
+            $projectsModel->updateProject($projectUuid, $this->view_data["userUuid"], [
+                'project_status'    => $statusId
+            ]);
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'ok']);
+        } else {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'nok']);
         }
     }
 

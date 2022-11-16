@@ -105,7 +105,18 @@
                                                             <td><?php echo date('d-m-Y H:i', strtotime($project['start_date'])); ?></td>
                                                             <td><?php echo date('d-m-Y H:i', strtotime($project['due_date'])); ?></td>
                                                             <td><?php echo $project['word_count']; ?></td>
-                                                            <td><button class="btn btn-outline-<?php echo $project['class']; ?> btn-fw"><?php echo $project['name']; ?></button></td>
+                                                            <td>
+                                                                <button class="btn btn-outline-<?php echo $project['class']; ?> btn-fw dropdown-toggle" type="button" id="dd<?php echo $project['uuid']; ?>" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?php echo $project['name']; ?> </button>
+                                                                <div class="dropdown-menu" aria-labelledby="dd<?php echo $project['uuid']; ?>">
+                                                                    <?php foreach ($statusses as $status) : ?>
+                                                                        <?php if ($project['project_status'] == $status['id']) : ?>
+                                                                            <a class="dropdown-item text-<?php echo $project['class']; ?>" onclick="updateStatus('<?php echo $project['uuid'] ?>', <?php echo $status['id']; ?> )" href="#"><b><?php echo $status['name']; ?></b></a>
+                                                                        <?php else : ?>
+                                                                            <a class="dropdown-item" onclick="updateStatus('<?php echo $project['uuid'] ?>', <?php echo $status['id']; ?> )" href="#"><?php echo $status['name']; ?></a>
+                                                                        <?php endif ?>
+                                                                    <?php endforeach; ?>
+                                                                </div>
+                                                            </td>
                                                             <td>
                                                                 <button class="btn btn-outline-danger custom-icon-btn" onclick="deleteProject('<?php echo $project['uuid']; ?>')">
                                                                     <i class="mdi mdi-delete text-danger"></i>
@@ -159,9 +170,20 @@
                                                             <td><?php echo date('d-m-Y H:i:s', strtotime($project['start_date'])); ?></td>
                                                             <td><?php echo date('d-m-Y H:i:s', strtotime($project['due_date'])); ?></td>
                                                             <td><?php echo $project['word_count']; ?></td>
-                                                            <td><label class="badge badge-<?php echo $project['class']; ?>"><?php echo $project['name']; ?></label></td>
                                                             <td>
-                                                                <button class="btn btn-outline-danger custom-icon-btn">
+                                                                <button class="btn btn-outline-<?php echo $project['class']; ?> btn-fw dropdown-toggle" type="button" id="dd<?php echo $project['uuid']; ?>" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?php echo $project['name']; ?> </button>
+                                                                <div class="dropdown-menu" aria-labelledby="dd<?php echo $project['uuid']; ?>">
+                                                                    <?php foreach ($statusses as $status) : ?>
+                                                                        <?php if ($project['project_status'] == $status['id']) : ?>
+                                                                            <a class="dropdown-item text-<?php echo $project['class']; ?>" onclick="updateStatus('<?php echo $project['uuid'] ?>', <?php echo $status['id']; ?> )" href="#"><b><?php echo $status['name']; ?></b></a>
+                                                                        <?php else : ?>
+                                                                            <a class="dropdown-item" onclick="updateStatus('<?php echo $project['uuid'] ?>', <?php echo $status['id']; ?> )" href="#"><?php echo $status['name']; ?></a>
+                                                                        <?php endif ?>
+                                                                    <?php endforeach; ?>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-outline-danger custom-icon-btn" onclick="deleteProject('<?php echo $project['uuid']; ?>')">
                                                                     <i class="mdi mdi-delete text-danger"></i>
                                                                 </button>
                                                                 <a class="btn btn-outline-info custom-icon-btn ml-1-5" href="/dashboard/editProject/<?php echo $project['uuid']; ?>?prevPage=dashboard&dateInput=<?php echo date('d-m-Y', strtotime($date)) ?>">

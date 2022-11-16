@@ -202,3 +202,67 @@ select.form-control {
     font-size: 0.875em;
     color: #dc3545;
 }
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: white;
+}
+
+.dropdown-item.text-primary:hover,
+.dropdown-item.text-primary:focus {
+    color: #0090e7;
+}
+
+.dropdown-item.text-success:hover,
+.dropdown-item.text-success:focus {
+    color: #00d25b;
+}
+
+.dropdown-item.text-info:hover,
+.dropdown-item.text-info:focus {
+    color: #8f5fe8;
+}
+
+.dropdown-item.text-secondary:hover,
+.dropdown-item.text-secondary:focus {
+    color: #ec0868;
+}
+
+.dropdown-item.text-danger:hover,
+.dropdown-item.text-danger:focus {
+    color: #fc424a;
+}
+
+.dropdown-item.text-warning:hover,
+.dropdown-item.text-warning:focus {
+    color: #ffab00;
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: #ec0868;
+    --bs-btn-border-color: #ec0868;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #ec0868;
+    --bs-btn-hover-border-color: #ec0868;
+    --bs-btn-focus-shadow-rgb: 252, 66, 74;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #ec0868;
+    --bs-btn-active-border-color: #ec0868;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #ec0868;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #ec0868;
+    --bs-gradient: none;
+}
+
+.text-secondary {
+    color: #ec0868 !important;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}

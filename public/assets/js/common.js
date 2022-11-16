@@ -155,3 +155,27 @@ function deleteProject(id) {
         function () {}
     );
 }
+
+function updateStatus(projectUuid, statusId) {
+    $.ajax({
+        type: "GET",
+        url: "/dashboard/updateStatus",
+        data: {
+            projectUuid: projectUuid,
+            statusId: statusId,
+        },
+        dataType: "JSON",
+        success: function (data) {
+            if (data.status == "ok") {
+                window.location.reload();
+            } else {
+                alertify.alert(
+                    "Something has gone wrong. Please try again later."
+                );
+            }
+        },
+        error: function (data) {
+            alertify.alert("Something has gone wrong. Please try again later.");
+        },
+    });
+}
