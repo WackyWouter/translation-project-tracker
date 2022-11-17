@@ -16,6 +16,7 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
+                                    <h4 class="card-title">Project Details</h4>
                                     <form id="projectForm" method="post" action="/dashboard/saveProject">
                                         <input type="hidden" id="projectUuid" name="projectUuid" class="form-control" value="<?php echo isset($project['uuid']) ? $project['uuid'] : ''; ?>">
                                         <input type="hidden" id="prevPage" name="prevPage" class="form-control" value="<?php echo $prevPage; ?>">

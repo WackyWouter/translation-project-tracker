@@ -11,24 +11,41 @@ class UsersModel extends Model
 
     function insertUser($data)
     {
-        $result = $this->db->table($this->table)->insert($data);
-        return $result;
+        $this->db->table($this->table)->insert($data);
     }
 
-    function isUsernameUnique($username)
+    function updateUser($uuid, $data)
+    {
+        $this->db->table($this->table)
+            ->where('uuid', $uuid)
+            ->update($data);
+    }
+
+    function isUsernameUnique($username, $uuid = '')
     {
         $result = $this->db->table($this->table)
-            ->where(['username' => $username])
-            ->countAllResults();
+            ->where(['username' => $username]);
 
+        if (strlen($uuid) > 0) {
+            $result = $result->where('uuid !=', $uuid);
+        }
+        // var_dump($username, $uuid, $result);
+        // exit;
+
+        $result = $result->countAllResults();
         return $result == 0;
     }
 
-    function isEmailUnique($email)
+    function isEmailUnique($email, $uuid = '')
     {
         $result = $this->db->table($this->table)
-            ->where(['email' => $email])
-            ->countAllResults();
+            ->where(['email' => $email]);
+
+        if (strlen($uuid) > 0) {
+            $result = $result->where('uuid !=', $uuid);
+        }
+
+        $result = $result->countAllResults();
         return $result == 0;
     }
 
@@ -36,6 +53,15 @@ class UsersModel extends Model
     {
         $query = $this->db->table($this->table)
             ->where(['username' => $username])
+            ->get(1);
+
+        return $query->getRowArray();
+    }
+
+    function getUserById($uuid)
+    {
+        $query = $this->db->table($this->table)
+            ->where(['uuid' => $uuid])
             ->get(1);
 
         return $query->getRowArray();

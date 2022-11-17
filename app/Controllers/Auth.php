@@ -90,6 +90,7 @@ class Auth extends BaseController
     public function createNewUser()
     {
         helper('usefull');
+        helper('auth');
         $usersModel = model(UsersModel::class);
 
         $uuid4 = generateUuid(); // Can be found in Helpers/usefull_helper
@@ -115,12 +116,12 @@ class Auth extends BaseController
         if (!$usersModel->isEmailUnique($email)) {
             $errorFound = true;
             $errors['.emailField'] = 'This email is already in use.';
-        } else if (!$this->isEmailValid($email)) {
+        } else if (!isEmailValid($email)) { // Can be found in Helpers/auth_helper
             $errorFound = true;
             $errors['.emailField'] = 'Please enter a valid email.';
         }
 
-        if (!$this->isPasswordStrEnough($password)) {
+        if (!isPasswordStrEnough($password)) { // Can be found in Helpers/auth_helper
             $errorFound = true;
             $errors['.pwdField'] = 'Password is not strong enough.';
         } else if ($password != $passwordConf) {
@@ -158,48 +159,5 @@ class Auth extends BaseController
         $session->destroy();
         // Redirect to the login page:
         return redirect('loginPage');
-    }
-
-    private function generateUuid()
-    {
-        $uuid = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
-        return $uuid;
-    }
-
-    private function isEmailValid($email)
-    {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return false;
-        }
-
-        //Get host name from email and check if it is valid
-        $email_host = array_slice(explode("@", $email), -1)[0];
-
-        // Check if valid IP (v4 or v6). If it is we can't do a DNS lookup
-        if (!filter_var($email_host, FILTER_VALIDATE_IP, [
-            'flags' => FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE,
-        ])) {
-            //Add a dot to the end of the host name to make a fully qualified domain name
-            // and get last array element because an escaped @ is allowed in the local part (RFC 5322)
-            // Then convert to ascii (http://us.php.net/manual/en/function.idn-to-ascii.php)
-            $email_host = idn_to_ascii($email_host . '.');
-
-            //Check for MX pointers in DNS (if there are no MX pointers the domain cannot receive emails)
-            if (!checkdnsrr($email_host, "MX")) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public function isPasswordStrEnough($pwd)
-    {
-
-        if (strlen($pwd) < 8 || !preg_match("#[0-9]+#", $pwd) || !preg_match("#[a-zA-Z]+#", $pwd)) {
-            return false;
-        }
-
-        return true;
     }
 }

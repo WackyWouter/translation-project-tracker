@@ -44,13 +44,21 @@ $routes->get('/logout', 'Auth::logout', ['as' => 'logout']);
 $routes->group('/dashboard', ["filter" => "authenticate"], function ($routes) {
     $routes->get('home', 'Dashboard::index', ['as' => 'dashboard']);
     $routes->get('allProjects', 'Projects::index', ['as' => 'allProjects']);
-    $routes->get('account', 'Account::index', ['as' => 'account']);
     $routes->get('newProject', 'Projects::newProject', ['as' => 'newProject']);
     $routes->get('editProject/(:segment)', 'Projects::editProject/$1', ['as' => 'editProject']);
     $routes->post('saveProject', 'Projects::saveProject', ['as' => 'saveProject']);
     $routes->get('updateStatus', 'Projects::updateStatus', ['as' => 'updateStatus']);
     $routes->get('deleteProject', 'Projects::deleteProject', ['as' => 'deleteProject']);
 });
+$routes->group('/account', ["filter" => "authenticate"], function ($routes) {
+    $routes->get('profile', 'Account::index', ['as' => 'account']);
+    $routes->get('edit', 'Account::edit', ['as' => 'editAccount']);
+    $routes->post('save', 'Account::save', ['as' => 'saveAccount']);
+    $routes->get('changePassword', 'Account::changePassword', ['as' => 'changePassword']);
+    $routes->post('savePassword', 'Account::savePassword', ['as' => 'savePassword']);
+});
+
+
 
 
 
