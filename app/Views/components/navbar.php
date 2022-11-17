@@ -9,10 +9,10 @@
             </a>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item nav-settings d-none d-lg-block border-left ">
+            <li class="nav-item nav-settings d-none d-xs-block border-left ">
                 <a href="/dashboard/home" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'dashboard') ? 'active' : '' ?>">Dashboard</a>
             </li>
-            <li class="nav-item nav-settings d-none d-lg-block border-left">
+            <li class="nav-item nav-settings d-none d-xs-block border-left">
                 <a href="/dashboard/allProjects" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'all projects') ? 'active' : '' ?>">All Projects</a>
             </li>
 

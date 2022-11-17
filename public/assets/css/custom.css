@@ -272,3 +272,9 @@ select.form-control {
     color: #8d8d8d;
     border: 1px solid #0c0c0e;
 }
+
+@media (min-width: 350px) {
+    .d-xs-block {
+        display: block !important;
+    }
+}
