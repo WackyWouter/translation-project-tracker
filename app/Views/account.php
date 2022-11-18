@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-12 text-end mt-sm-4">
+                                        <div class="col-12 text-end mt-4">
                                             <a href="/account/edit" class="btn btn-outline-warning btn-fw me-3">Edit Account</a>
                                             <a href="/account/changePassword" onclick="" class="btn btn-outline-danger btn-fw">Change Password</a>
                                         </div>

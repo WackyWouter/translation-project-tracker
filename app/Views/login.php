@@ -20,12 +20,8 @@
                                     <input type="password" id="password" name="password" class="form-control p_input last-login-input">
                                     <span class="invalid-feedback"></span>
                                 </div>
-                                <div class="form-group d-flex align-items-center justify-content-between">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input"> Remember me </label>
-                                    </div>
-                                    <a href="#" class="forgot-pass">Forgot password</a>
+                                <div class="form-group d-flex align-items-center justify-content-end">
+                                    <a href="/resetPw" class="forgot-pass">Forgot password</a>
                                 </div>
                                 <p class="main-error invalid-feedback"></p>
                                 <div class="text-center">

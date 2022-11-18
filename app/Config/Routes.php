@@ -40,6 +40,10 @@ $routes->post('/login', 'Auth::login', ['as' => 'login', "filter" => "reverseAut
 $routes->get('/register', 'Auth::register', ['as' => 'register', "filter" => "reverseAuth"]);
 $routes->post('/register/newUser', 'Auth::createNewUser', ['as' => 'newUser', "filter" => "reverseAuth"]);
 $routes->get('/logout', 'Auth::logout', ['as' => 'logout']);
+$routes->get('/resetPw', 'Auth::resetPassword', ['as' => 'resetPw']);
+$routes->post('/resetPw/save', 'Auth::sendPwdResetEmail', ['as' => 'resetPwPost']);
+$routes->get('/resetPw/token/(:segment)', 'Auth::checkToken/$1', ['as' => 'token']);
+$routes->post('/resetPw/saveNewPassword', 'Auth::saveNewPassword', ['as' => 'saveNewPassword']);
 
 $routes->group('/dashboard', ["filter" => "authenticate"], function ($routes) {
     $routes->get('home', 'Dashboard::index', ['as' => 'dashboard']);
@@ -57,9 +61,6 @@ $routes->group('/account', ["filter" => "authenticate"], function ($routes) {
     $routes->get('changePassword', 'Account::changePassword', ['as' => 'changePassword']);
     $routes->post('savePassword', 'Account::savePassword', ['as' => 'savePassword']);
 });
-
-
-
 
 
 /*

@@ -29,8 +29,6 @@ class UsersModel extends Model
         if (strlen($uuid) > 0) {
             $result = $result->where('uuid !=', $uuid);
         }
-        // var_dump($username, $uuid, $result);
-        // exit;
 
         $result = $result->countAllResults();
         return $result == 0;
@@ -58,10 +56,29 @@ class UsersModel extends Model
         return $query->getRowArray();
     }
 
+    function findUserByEmail($email)
+    {
+        $query = $this->db->table($this->table)
+            ->where(['email' => $email])
+            ->get(1);
+
+        return $query->getRowArray();
+    }
+
     function getUserById($uuid)
     {
         $query = $this->db->table($this->table)
             ->where(['uuid' => $uuid])
+            ->get(1);
+
+        return $query->getRowArray();
+    }
+
+    function isTokenValid($token)
+    {
+        $query = $this->db->table($this->table)
+            ->where('reset_pw_token', $token)
+            ->where('token_expire > ', date('Y-m-d H:i:s'))
             ->get(1);
 
         return $query->getRowArray();

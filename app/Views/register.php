@@ -27,20 +27,14 @@
                                     <small class="text-muted">Atleast 9 characters, one number and one letter.</small>
                                     <span class="invalid-feedback"></span>
                                 </div>
-                                <div class="form-group pwdField">
+                                <div class="form-group confPwdField">
                                     <label>Confirm Password<span style="color:red">*</span></label>
                                     <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control p_input last-register-input">
-                                </div>
-                                <div class="form-group d-flex align-items-center justify-content-between">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input"> Remember me </label>
-                                    </div>
-                                    <a href="#" class="forgot-pass">Forgot password</a>
+                                    <span class="invalid-feedback"></span>
                                 </div>
                                 <p class="main-error invalid-feedback"></p>
                                 <div class="text-center">
-                                    <button type="button" onclick="createNewUser()" class="btn btn-primary btn-block enter-btn">Register</button>
+                                    <button type="button" onclick="createNewUser()" class="btn btn-primary btn-block mt-4 enter-btn">Register</button>
                                 </div>
                                 <p class="sign-up text-center">Already have an Account?<a href="/"> Sign Up</a></p>
                             </form>

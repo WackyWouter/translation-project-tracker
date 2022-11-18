@@ -56,7 +56,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-12 text-end mt-sm-4">
+                                            <div class="col-12 text-end mt-4">
                                                 <button type="button" onclick="changePassword()" class="btn btn-outline-primary btn-fw">Save</button>
                                             </div>
                                         </div>
