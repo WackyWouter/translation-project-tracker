@@ -9,6 +9,7 @@ class Auth extends BaseController
 
     function __construct()
     {
+        date_default_timezone_set('Europe/London');
     }
 
     public function index()
@@ -59,6 +60,10 @@ class Auth extends BaseController
                 header('Content-Type: application/json; charset=utf-8');
                 echo json_encode(['status' => 'nok', 'errors' => ['.pwdField' => 'Your login credentials don\'t match an account in our system.', '.usernameField' => '']]);
             } else {
+
+                $usersModel->updateUser($user['uuid'], [
+                    'last_login' => date('Y-m-d H:i:s')
+                ]);
 
                 // create session
                 $session = session();
@@ -138,6 +143,7 @@ class Auth extends BaseController
                 'username' => $username,
                 'email' => $email,
                 'password' => password_hash($password, PASSWORD_DEFAULT),
+                'last_login' => date('Y-m-d H:i:s')
             ]);
 
             // create session
