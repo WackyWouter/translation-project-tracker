@@ -77,33 +77,45 @@
                                                 <div class="form-group row startDateField">
                                                     <label class="col-sm-4 col-form-label">Start Date<span style="color:red">*</span></label>
                                                     <div class="col-sm-8">
-                                                        <input type="hidden" id="oldStartDate" name="oldStartDate" class="form-control" value="<?php echo isset($project['start_date']) ? date('Y-m-d', strtotime($project['start_date'])) : ''; ?>">
-                                                        <div id="start-datepicker-popup" class="input-group date datepicker no-padding">
-                                                            <input type="text" id="startDate" name="startDate" class="form-control">
-                                                            <span class=" input-group-addon input-group-append border-left">
-                                                                <span class="mdi mdi-calendar input-group-text"></span>
-                                                            </span>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <input type="hidden" id="oldStartDate" name="oldStartDate" class="form-control" value="<?php echo isset($project['start_date']) ? date('Y-m-d', strtotime($project['start_date'])) : ''; ?>">
+                                                                <div id="start-datepicker-popup" class="input-group date datepicker no-padding">
+                                                                    <input type="text" id="startDate" name="startDate" class="form-control">
+                                                                    <span class=" input-group-addon input-group-append border-left">
+                                                                        <span class="mdi mdi-calendar input-group-text"></span>
+                                                                    </span>
 
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 mt-lg-only">
+                                                                <input type="time" id="startTime" name="startTime" class="form-control" value="<?php echo isset($project['start_date']) ? date('H:i', strtotime($project['start_date'])) : ''; ?>">
+                                                            </div>
                                                         </div>
                                                         <span class="invalid-feedback"></span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 ">
                                                 <div class="form-group row dueDateField">
                                                     <label class="col-sm-4 col-form-label">Due Date<span style="color:red">*</span></label>
                                                     <div class="col-sm-8">
-                                                        <input type="hidden" id="oldDueDate" name="oldDueDate" class="form-control" value="<?php echo isset($project['due_date']) ? date('Y-m-d', strtotime($project['due_date'])) : ''; ?>">
-                                                        <div id="due-datepicker-popup" class="input-group date datepicker no-padding">
-                                                            <input type="text" id="dueDate" name="dueDate" class="form-control">
-                                                            <span class=" input-group-addon input-group-append border-left">
-                                                                <span class="mdi mdi-calendar input-group-text"></span>
-                                                            </span>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <input type="hidden" id="oldDueDate" name="oldDueDate" class="form-control" value="<?php echo isset($project['due_date']) ? date('Y-m-d', strtotime($project['due_date'])) : ''; ?>">
+                                                                <div id="due-datepicker-popup" class="input-group date datepicker no-padding">
+                                                                    <input type="text" id="dueDate" name="dueDate" class="form-control">
+                                                                    <span class=" input-group-addon input-group-append border-left">
+                                                                        <span class="mdi mdi-calendar input-group-text"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 mt-lg-only">
+                                                                <input type="time" id="dueTime" name="dueTime" class="form-control" value="<?php echo isset($project['due_date']) ? date('H:i', strtotime($project['due_date'])) : ''; ?>">
+                                                            </div>
                                                         </div>
                                                         <span class="invalid-feedback"></span>
-
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -122,15 +134,23 @@
                                                 <div class="form-group row plannedDateField">
                                                     <label class="col-sm-4 col-form-label">Planned Date<span style="color:red">*</span></label>
                                                     <div class="col-sm-8">
-                                                        <input type="hidden" id="oldPlannedDate" name="oldPlannedDate" class="form-control" value="<?php echo isset($project['planned_date']) ? date('Y-m-d', strtotime($project['planned_date'])) : ''; ?>">
-                                                        <div id="planned-datepicker-popup" class="input-group date datepicker no-padding">
-                                                            <input type="text" id="plannedDate" name="plannedDate" class="form-control">
-                                                            <span class=" input-group-addon input-group-append border-left">
-                                                                <span class="mdi mdi-calendar input-group-text"></span>
-                                                            </span>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <input type="hidden" id="oldPlannedDate" name="oldPlannedDate" class="form-control" value="<?php echo isset($project['planned_date']) ? date('Y-m-d', strtotime($project['planned_date'])) : ''; ?>">
+                                                                <div id="planned-datepicker-popup" class="input-group date datepicker no-padding">
+                                                                    <input type="text" id="plannedDate" name="plannedDate" class="form-control">
+                                                                    <span class=" input-group-addon input-group-append border-left">
+                                                                        <span class="mdi mdi-calendar input-group-text"></span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 mt-lg-only test">
+                                                                <input type="time" id="plannedTime" name="plannedTime" class="form-control" value="<?php echo isset($project['planned_date']) ? date('H:i', strtotime($project['planned_date'])) : ''; ?>">
+                                                            </div>
+
                                                         </div>
-                                                        <small class="text-muted">This date determines on which date it shows up on the dashboard.</small>
                                                         <span class="invalid-feedback"></span>
+                                                        <small class="text-muted">This date determines on which date it shows up on the dashboard.</small>
                                                     </div>
                                                 </div>
                                             </div>

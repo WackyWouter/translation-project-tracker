@@ -70,10 +70,14 @@ class ProjectsModel extends Model
 
     function getProjectsByDate($userUuid, $date, $completed)
     {
+        $beginDay = $date . ' 00:00';
+        $endDay = $date . ' 23:59';
+
         $query = $this->db->table($this->table)
             ->select('projects.uuid, projects.user_uuid, projects.title, projects.source_language, projects.target_language, projects.planned_date, projects.start_date, projects.due_date, projects.word_count, projects.project_status, project_statusses.name, project_statusses.class')
             ->where('user_uuid =', $userUuid)
-            ->where('planned_date =', $date);
+            ->where('planned_date >=', $beginDay)
+            ->where('planned_date <=', $endDay);
 
         if ($completed) {
             $query->where('project_status =', 4);

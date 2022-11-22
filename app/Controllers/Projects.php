@@ -108,9 +108,21 @@ class Projects extends BaseController
         $sourceLang = trim($this->request->getPost('sourceLang'));
         $targetLang = trim($this->request->getPost('targetLang'));
         $startDate = trim($this->request->getPost('startDate'));
+        $startTime = $this->request->getPost('startTime');
         $dueDate = trim($this->request->getPost('dueDate'));
+        $dueTime = $this->request->getPost('dueTime');
         $wordCount = $this->request->getPost('wordCount');
         $plannedDate = trim($this->request->getPost('plannedDate'));
+        $plannedTime = $this->request->getPost('plannedTime');
+
+        // Formulate date strings
+        $startTime = $startTime == '' ? '00:00' : $startTime;
+        $dueTime = $dueTime == '' ? '00:00' : $dueTime;
+        $plannedTime = $plannedTime == '' ? '00:00' : $plannedTime;
+
+        $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startTime));
+        $due = date('Y-m-d H:i:s', strtotime($dueDate . ' ' . $dueTime));
+        $planned = date('Y-m-d H:i:s', strtotime($plannedDate . ' ' . $plannedTime));
 
         $errorFound = false;
         $errors = [];
@@ -149,16 +161,24 @@ class Projects extends BaseController
         if (!$this->validateDate($startDate)) {
             $errorFound = true;
             $errors['.startDateField'] = 'Start Date needs to be in dd-mm-yyyy format.';
+        }  // Check time is formatted properly
+        else if (!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $startTime)) {
+            $errorFound = true;
+            $errors['.startDateField'] = 'Start Time needs to be in HH:MM format.';
         }
 
         // Check that the date is in a valid format
         if (!$this->validateDate($dueDate)) {
             $errorFound = true;
             $errors['.dueDateField'] = 'Due Date needs to be in dd-mm-yyyy format.';
+        }  // Check time is formatted properly
+        else  if (!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $dueTime)) {
+            $errorFound = true;
+            $errors['.dueDateField'] = 'Due Time needs to be in HH:MM format.';
         }
 
         // Check that due date is not before Start date
-        if (strtotime($startDate) > strtotime($dueDate)) {
+        if (strtotime($start) > strtotime($due)) {
             $errorFound = true;
             $errors['.dueDateField'] = 'Due Date needs to be after Start Date.';
         }
@@ -167,6 +187,10 @@ class Projects extends BaseController
         if (!$this->validateDate($plannedDate)) {
             $errorFound = true;
             $errors['.plannedDateField'] = 'Planned Date needs to be in dd-mm-yyyy format.';
+        }  // Check time is formatted properly
+        else if (!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $plannedTime)) {
+            $errorFound = true;
+            $errors['.plannedDateField'] = 'Planned Time needs to be in HH:MM format.';
         }
 
         if ($errorFound) {
@@ -185,9 +209,9 @@ class Projects extends BaseController
                     'title'             => $projectTitle,
                     'source_language'   => $sourceLang,
                     'target_language'   => $targetLang,
-                    'planned_date'      => date('Y-m-d', strtotime($plannedDate)),
-                    'start_date'        => date('Y-m-d', strtotime($startDate)),
-                    'due_date'          => date('Y-m-d', strtotime($dueDate)),
+                    'planned_date'      => $planned,
+                    'start_date'        => $start,
+                    'due_date'          => $due,
                     'word_count'        => $wordCount,
                     'project_status'    => $status
                 ]);
@@ -198,9 +222,9 @@ class Projects extends BaseController
                     'title'             => $projectTitle,
                     'source_language'   => $sourceLang,
                     'target_language'   => $targetLang,
-                    'planned_date'      => date('Y-m-d', strtotime($plannedDate)),
-                    'start_date'        => date('Y-m-d', strtotime($startDate)),
-                    'due_date'          => date('Y-m-d', strtotime($dueDate)),
+                    'planned_date'      => $planned,
+                    'start_date'        => $start,
+                    'due_date'          => $due,
                     'word_count'        => $wordCount,
                     'project_status'    => $status
                 ]);
