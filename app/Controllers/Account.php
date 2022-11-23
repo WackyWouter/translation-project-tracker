@@ -30,6 +30,9 @@ class Account extends BaseController
         $footer = view('components/footer', $this->view_data);
         $this->view_data['footer'] = $footer;
 
+        $footerBar = view('components/footer-bar', $this->view_data);
+        $this->view_data['footerBar'] = $footerBar;
+
         return view('account', $this->view_data);
     }
 
@@ -49,6 +52,9 @@ class Account extends BaseController
 
         $footer = view('components/footer', $this->view_data);
         $this->view_data['footer'] = $footer;
+
+        $footerBar = view('components/footer-bar', $this->view_data);
+        $this->view_data['footerBar'] = $footerBar;
 
         return view('edit-account', $this->view_data);
     }
@@ -119,6 +125,9 @@ class Account extends BaseController
 
         $footer = view('components/footer', $this->view_data);
         $this->view_data['footer'] = $footer;
+
+        $footerBar = view('components/footer-bar', $this->view_data);
+        $this->view_data['footerBar'] = $footerBar;
 
         return view('edit-password', $this->view_data);
     }

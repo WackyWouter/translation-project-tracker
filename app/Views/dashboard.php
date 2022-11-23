@@ -198,6 +198,7 @@
                     </div>
 
                 </div>
+                <?php echo $footerBar ?>
             </div>
         </div>
     </div>

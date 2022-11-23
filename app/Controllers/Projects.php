@@ -39,6 +39,9 @@ class Projects extends BaseController
         $footer = view('components/footer', $this->view_data);
         $this->view_data['footer'] = $footer;
 
+        $footerBar = view('components/footer-bar', $this->view_data);
+        $this->view_data['footerBar'] = $footerBar;
+
         return view('all-projects', $this->view_data);
     }
 
@@ -65,6 +68,9 @@ class Projects extends BaseController
 
         $footer = view('components/footer', $this->view_data);
         $this->view_data['footer'] = $footer;
+
+        $footerBar = view('components/footer-bar', $this->view_data);
+        $this->view_data['footerBar'] = $footerBar;
 
         return view('project', $this->view_data);
     }
@@ -96,6 +102,9 @@ class Projects extends BaseController
 
         $footer = view('components/footer', $this->view_data);
         $this->view_data['footer'] = $footer;
+
+        $footerBar = view('components/footer-bar', $this->view_data);
+        $this->view_data['footerBar'] = $footerBar;
 
         return view('project', $this->view_data);
     }
