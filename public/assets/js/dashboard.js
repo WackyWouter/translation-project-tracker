@@ -7,7 +7,6 @@
             $("#datepicker-popup").datepicker({
                 autoclose: true,
                 todayHighlight: true,
-                todayBtn: true,
                 format: "dd-mm-yyyy",
             });
             $("#datepicker-popup").datepicker("update", date);
