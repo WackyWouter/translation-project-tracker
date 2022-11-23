@@ -84,7 +84,6 @@
                                                     <th>Title</th>
                                                     <th>Source</th>
                                                     <th>Target</th>
-                                                    <th>Planned Date</th>
                                                     <th>Start Date</th>
                                                     <th>Due Date</th>
                                                     <th>Word Count</th>
@@ -101,7 +100,6 @@
                                                             <td><?php echo $project['title']; ?></td>
                                                             <td><?php echo $project['source_language']; ?></td>
                                                             <td><?php echo $project['target_language']; ?></td>
-                                                            <td><?php echo date('d-m-Y H:i', strtotime($project['planned_date'])); ?></td>
                                                             <td><?php echo date('d-m-Y H:i', strtotime($project['start_date'])); ?></td>
                                                             <td><?php echo date('d-m-Y H:i', strtotime($project['due_date'])); ?></td>
                                                             <td><?php echo $project['word_count']; ?></td>
@@ -149,7 +147,6 @@
                                                     <th>Title</th>
                                                     <th>Source</th>
                                                     <th>Target</th>
-                                                    <th>Planned Date</th>
                                                     <th>Start Date</th>
                                                     <th>Due Date</th>
                                                     <th>Word Count</th>
@@ -166,9 +163,8 @@
                                                             <td><?php echo $project['title']; ?></td>
                                                             <td><?php echo $project['source_language']; ?></td>
                                                             <td><?php echo $project['target_language']; ?></td>
-                                                            <td><?php echo date('d-m-Y H:i:s', strtotime($project['planned_date'])); ?></td>
-                                                            <td><?php echo date('d-m-Y H:i:s', strtotime($project['start_date'])); ?></td>
-                                                            <td><?php echo date('d-m-Y H:i:s', strtotime($project['due_date'])); ?></td>
+                                                            <td><?php echo date('d-m-Y H:i', strtotime($project['start_date'])); ?></td>
+                                                            <td><?php echo date('d-m-Y H:i', strtotime($project['due_date'])); ?></td>
                                                             <td><?php echo $project['word_count']; ?></td>
                                                             <td>
                                                                 <button class="btn btn-outline-<?php echo $project['class']; ?> btn-fw dropdown-toggle" type="button" id="dd<?php echo $project['uuid']; ?>" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?php echo $project['name']; ?> </button>

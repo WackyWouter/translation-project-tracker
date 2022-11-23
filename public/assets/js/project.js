@@ -70,12 +70,9 @@ function validateProject() {
     const sourceLang = $("#sourceLang").val();
     const targetLang = $("#targetLang").val();
     const startDate = $("#startDate").val();
-    const startTime = $("#startTime").val();
     const dueDate = $("#dueDate").val();
-    const dueTime = $("#dueTime").val();
     const wordCount = $("#wordCount").val();
     const plannedDate = $("#plannedDate").val();
-    const plannedTime = $("#plannedTime").val();
 
     // Check if title is empty
     if (projectTitle.trim().length == 0) {

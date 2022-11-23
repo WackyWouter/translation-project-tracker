@@ -113,16 +113,14 @@ class Projects extends BaseController
         $dueTime = $this->request->getPost('dueTime');
         $wordCount = $this->request->getPost('wordCount');
         $plannedDate = trim($this->request->getPost('plannedDate'));
-        $plannedTime = $this->request->getPost('plannedTime');
 
         // Formulate date strings
         $startTime = $startTime == '' ? '00:00' : $startTime;
         $dueTime = $dueTime == '' ? '00:00' : $dueTime;
-        $plannedTime = $plannedTime == '' ? '00:00' : $plannedTime;
 
         $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startTime));
         $due = date('Y-m-d H:i:s', strtotime($dueDate . ' ' . $dueTime));
-        $planned = date('Y-m-d H:i:s', strtotime($plannedDate . ' ' . $plannedTime));
+        $planned = date('Y-m-d H:i:s', strtotime($plannedDate));
 
         $errorFound = false;
         $errors = [];
@@ -187,10 +185,6 @@ class Projects extends BaseController
         if (!$this->validateDate($plannedDate)) {
             $errorFound = true;
             $errors['.plannedDateField'] = 'Planned Date needs to be in dd-mm-yyyy format.';
-        }  // Check time is formatted properly
-        else if (!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $plannedTime)) {
-            $errorFound = true;
-            $errors['.plannedDateField'] = 'Planned Time needs to be in HH:MM format.';
         }
 
         if ($errorFound) {
