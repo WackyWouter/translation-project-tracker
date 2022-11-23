@@ -125,7 +125,7 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <button class="btn btn-outline-danger custom-icon-btn">
+                                                                <button class="btn btn-outline-danger custom-icon-btn" onclick="deleteProject('<?php echo $project['uuid']; ?>')">
                                                                     <i class="mdi mdi-delete text-danger"></i>
                                                                 </button>
                                                                 <a class="btn btn-outline-info custom-icon-btn ml-1-5" href="/dashboard/editProject/<?php echo $project['uuid']; ?>?prevPage=all-projects">

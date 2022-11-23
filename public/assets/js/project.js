@@ -28,7 +28,7 @@ function saveProject() {
 
     // Empty old errors
     $(".form-control").removeClass("is-invalid");
-    $(".datepicker").removeClass("is-invalid");
+    $(".row").removeClass("is-invalid");
     $(".invalid-feedback").html("");
     $(".main-error").html("");
 
@@ -51,7 +51,7 @@ function saveProject() {
                     Object.keys(data.errors).forEach(function (key) {
                         $(key).find(".invalid-feedback").html(data.errors[key]);
                         $(key).find("input").addClass("is-invalid");
-                        $(key).find(".datepicker").addClass("is-invalid");
+                        $(key).find(".row").addClass("is-invalid");
                     });
                 }
             },
@@ -70,9 +70,12 @@ function validateProject() {
     const sourceLang = $("#sourceLang").val();
     const targetLang = $("#targetLang").val();
     const startDate = $("#startDate").val();
+    const startTime = $("#startTime").val();
     const dueDate = $("#dueDate").val();
+    const dueTime = $("#dueTime").val();
     const wordCount = $("#wordCount").val();
     const plannedDate = $("#plannedDate").val();
+    const plannedTime = $("#plannedTime").val();
 
     // Check if title is empty
     if (projectTitle.trim().length == 0) {

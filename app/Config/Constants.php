@@ -95,4 +95,4 @@ define('EVENT_PRIORITY_HIGH', 10);
 
 
 // constant for forcing refreshing assets
-define('CONF_asset_version', 1.010);
+define('CONF_asset_version', 1.059);

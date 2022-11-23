@@ -278,3 +278,9 @@ select.form-control {
         display: block !important;
     }
 }
+
+@media (max-width: 992px) {
+    .mt-lg-only {
+        margin-top: 10px !important;
+    }
+}
