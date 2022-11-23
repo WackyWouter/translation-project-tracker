@@ -284,3 +284,15 @@ select.form-control {
         margin-top: 10px !important;
     }
 }
+
+.footer {
+    background-color: #191c24 !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer p {
+    margin-bottom: 0;
+}
