@@ -135,7 +135,7 @@
                                                     <label class="col-sm-4 col-form-label">Planned Date<span style="color:red">*</span></label>
                                                     <div class="col-sm-8">
                                                         <div class="row">
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-12">
                                                                 <input type="hidden" id="oldPlannedDate" name="oldPlannedDate" class="form-control" value="<?php echo isset($project['planned_date']) ? date('Y-m-d', strtotime($project['planned_date'])) : ''; ?>">
                                                                 <div id="planned-datepicker-popup" class="input-group date datepicker no-padding">
                                                                     <input type="text" id="plannedDate" name="plannedDate" class="form-control">
@@ -144,10 +144,6 @@
                                                                     </span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-6 mt-lg-only test">
-                                                                <input type="time" id="plannedTime" name="plannedTime" class="form-control" value="<?php echo isset($project['planned_date']) ? date('H:i', strtotime($project['planned_date'])) : ''; ?>">
-                                                            </div>
-
                                                         </div>
                                                         <span class="invalid-feedback"></span>
                                                         <small class="text-muted">This date determines on which date it shows up on the dashboard.</small>
