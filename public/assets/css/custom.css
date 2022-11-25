@@ -296,3 +296,14 @@ select.form-control {
 .footer p {
     margin-bottom: 0;
 }
+
+.time-box {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+select.is-invalid {
+    border-style: solid;
+    border-width: 1px;
+}

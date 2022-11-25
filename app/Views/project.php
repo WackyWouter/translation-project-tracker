@@ -88,8 +88,35 @@
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-6 mt-lg-only">
-                                                                <input type="time" id="startTime" name="startTime" class="form-control" value="<?php echo isset($project['start_date']) ? date('H:i', strtotime($project['start_date'])) : ''; ?>">
+                                                            <div class="col-lg-6 mt-lg-only time-box">
+
+                                                                <?php
+                                                                $startHour = isset($project['start_date']) ? date('H', strtotime($project['start_date'])) : '';
+                                                                $startMin = isset($project['start_date']) ? date('i', strtotime($project['start_date'])) : '';
+                                                                ?>
+                                                                <select name="startHour" id="startHour" class="form-control">
+                                                                    <option <?php echo $startHour == '07' ? 'selected' : '' ?> value="07">07</option>
+                                                                    <option <?php echo $startHour == '08' ? 'selected' : '' ?> value="08">08</option>
+                                                                    <option <?php echo $startHour == '09' ? 'selected' : '' ?> value="09">09</option>
+                                                                    <option <?php echo $startHour == '10' ? 'selected' : '' ?> value="10">10</option>
+                                                                    <option <?php echo $startHour == '11' ? 'selected' : '' ?> value="11">11</option>
+                                                                    <option <?php echo $startHour == '12' ? 'selected' : '' ?> value="12">12</option>
+                                                                    <option <?php echo $startHour == '13' ? 'selected' : '' ?> value="13">13</option>
+                                                                    <option <?php echo $startHour == '14' ? 'selected' : '' ?> value="14">14</option>
+                                                                    <option <?php echo $startHour == '15' ? 'selected' : '' ?> value="15">15</option>
+                                                                    <option <?php echo $startHour == '16' ? 'selected' : '' ?> value="16">16</option>
+                                                                    <option <?php echo $startHour == '17' ? 'selected' : '' ?> value="17">17</option>
+                                                                    <option <?php echo $startHour == '18' ? 'selected' : '' ?> value="18">18</option>
+                                                                    <option <?php echo $startHour == '19' ? 'selected' : '' ?> value="19">19</option>
+                                                                    <option <?php echo $startHour == '20' ? 'selected' : '' ?> value="20">20</option>
+                                                                </select>
+                                                                :
+                                                                <select name="startMin" id="startMin" class="form-control">
+                                                                    <option <?php echo $startMin == '00' ? 'selected' : '' ?> value="00">00</option>
+                                                                    <option <?php echo $startMin == '15' ? 'selected' : '' ?> value="15">15</option>
+                                                                    <option <?php echo $startMin == '30' ? 'selected' : '' ?> value="30">30</option>
+                                                                    <option <?php echo $startMin == '45' ? 'selected' : '' ?> value="45">45</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <span class="invalid-feedback"></span>
@@ -110,8 +137,35 @@
                                                                     </span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-6 mt-lg-only">
-                                                                <input type="time" id="dueTime" name="dueTime" class="form-control" value="<?php echo isset($project['due_date']) ? date('H:i', strtotime($project['due_date'])) : ''; ?>">
+                                                            <div class="col-lg-6 mt-lg-only time-box">
+
+                                                                <?php
+                                                                $dueHour = isset($project['due_date']) ? date('H', strtotime($project['due_date'])) : '';
+                                                                $dueMin = isset($project['due_date']) ? date('i', strtotime($project['due_date'])) : '';
+                                                                ?>
+                                                                <select name="dueHour" id="dueHour" class="form-control">
+                                                                    <option <?php echo $dueHour == '07' ? 'selected' : '' ?> value="07">07</option>
+                                                                    <option <?php echo $dueHour == '08' ? 'selected' : '' ?> value="08">08</option>
+                                                                    <option <?php echo $dueHour == '09' ? 'selected' : '' ?> value="09">09</option>
+                                                                    <option <?php echo $dueHour == '10' ? 'selected' : '' ?> value="10">10</option>
+                                                                    <option <?php echo $dueHour == '11' ? 'selected' : '' ?> value="11">11</option>
+                                                                    <option <?php echo $dueHour == '12' ? 'selected' : '' ?> value="12">12</option>
+                                                                    <option <?php echo $dueHour == '13' ? 'selected' : '' ?> value="13">13</option>
+                                                                    <option <?php echo $dueHour == '14' ? 'selected' : '' ?> value="14">14</option>
+                                                                    <option <?php echo $dueHour == '15' ? 'selected' : '' ?> value="15">15</option>
+                                                                    <option <?php echo $dueHour == '16' ? 'selected' : '' ?> value="16">16</option>
+                                                                    <option <?php echo $dueHour == '17' ? 'selected' : '' ?> value="17">17</option>
+                                                                    <option <?php echo $dueHour == '18' ? 'selected' : '' ?> value="18">18</option>
+                                                                    <option <?php echo $dueHour == '19' ? 'selected' : '' ?> value="19">19</option>
+                                                                    <option <?php echo $dueHour == '20' ? 'selected' : '' ?> value="20">20</option>
+                                                                </select>
+                                                                :
+                                                                <select name="dueMin" id="dueMin" class="form-control">
+                                                                    <option <?php echo $dueMin == '00' ? 'selected' : '' ?> value="00">00</option>
+                                                                    <option <?php echo $dueMin == '15' ? 'selected' : '' ?> value="15">15</option>
+                                                                    <option <?php echo $dueMin == '30' ? 'selected' : '' ?> value="30">30</option>
+                                                                    <option <?php echo $dueMin == '45' ? 'selected' : '' ?> value="45">45</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <span class="invalid-feedback"></span>

@@ -117,18 +117,22 @@ class Projects extends BaseController
         $sourceLang = trim($this->request->getPost('sourceLang'));
         $targetLang = trim($this->request->getPost('targetLang'));
         $startDate = trim($this->request->getPost('startDate'));
-        $startTime = $this->request->getPost('startTime');
+        $startHour = $this->request->getPost('startHour');
+        $startMin = $this->request->getPost('startMin');
         $dueDate = trim($this->request->getPost('dueDate'));
-        $dueTime = $this->request->getPost('dueTime');
+        $dueHour = $this->request->getPost('dueHour');
+        $dueMin = $this->request->getPost('dueMin');
         $wordCount = $this->request->getPost('wordCount');
         $plannedDate = trim($this->request->getPost('plannedDate'));
 
         // Formulate date strings
-        $startTime = $startTime == '' ? '00:00' : $startTime;
-        $dueTime = $dueTime == '' ? '00:00' : $dueTime;
+        $startHour = $startHour == '' ? '07' : $startHour;
+        $startMin = $startMin == '' ? '00' : $startMin;
+        $dueHour = $dueHour == '' ? '17' : $dueHour;
+        $dueMin = $dueMin == '' ? '30' : $dueMin;
 
-        $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startTime));
-        $due = date('Y-m-d H:i:s', strtotime($dueDate . ' ' . $dueTime));
+        $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startHour . ':' . $startMin));
+        $due = date('Y-m-d H:i:s', strtotime($dueDate . ' ' . $dueHour . ':' . $dueMin));
         $planned = date('Y-m-d H:i:s', strtotime($plannedDate));
 
         $errorFound = false;
@@ -169,7 +173,7 @@ class Projects extends BaseController
             $errorFound = true;
             $errors['.startDateField'] = 'Start Date needs to be in dd-mm-yyyy format.';
         }  // Check time is formatted properly
-        else if (!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $startTime)) {
+        else if (!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $startHour . ':' . $startMin)) {
             $errorFound = true;
             $errors['.startDateField'] = 'Start Time needs to be in HH:MM format.';
         }
@@ -179,7 +183,7 @@ class Projects extends BaseController
             $errorFound = true;
             $errors['.dueDateField'] = 'Due Date needs to be in dd-mm-yyyy format.';
         }  // Check time is formatted properly
-        else  if (!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $dueTime)) {
+        else  if (!preg_match("/^(?:2[0-4]|[01][1-9]|10):([0-5][0-9])$/", $dueHour . ':' . $dueMin)) {
             $errorFound = true;
             $errors['.dueDateField'] = 'Due Time needs to be in HH:MM format.';
         }
