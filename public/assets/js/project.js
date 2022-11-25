@@ -50,6 +50,7 @@ function saveProject() {
                     Object.keys(data.errors).forEach(function (key) {
                         $(key).find(".invalid-feedback").html(data.errors[key]);
                         $(key).find("input").addClass("is-invalid");
+                        $(key).find("select").addClass("is-invalid");
                         $(key).find(".row").addClass("is-invalid");
                     });
                 }
