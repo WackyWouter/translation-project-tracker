@@ -207,6 +207,7 @@ class Projects extends BaseController
 
             // if no id is present then is a new project
             if (strlen($projectUuid) == 0) {
+                $action = 'save';
                 helper('usefull');
 
                 $projectsModel = model(ProjectsModel::class);
@@ -223,6 +224,7 @@ class Projects extends BaseController
                     'project_status'    => $status
                 ]);
             } else {
+                $action = 'edit';
 
                 $projectsModel = model(ProjectsModel::class);
                 $projectsModel->updateProject($projectUuid, $this->view_data["userUuid"], [
@@ -238,7 +240,7 @@ class Projects extends BaseController
             }
 
             header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(['status' => 'ok']);
+            echo json_encode(['status' => 'ok', 'action' => $action, 'projectName' => $projectTitle]);
         }
     }
 
@@ -251,12 +253,27 @@ class Projects extends BaseController
         $statusModel = model(StatusModel::class);
 
         if ($statusModel->doesIdExist($statusId)) {
-            $projectsModel->updateProject($projectUuid, $this->view_data["userUuid"], [
-                'project_status'    => $statusId
-            ]);
+
+            $project = $projectsModel->getProjectByUuid($projectUuid, $this->view_data["userUuid"]);
+
+            $today = date('Y-m-d');
+            $plannedDate = date('Y-m-d', strtotime($project['planned_date']));
+            $dueDate = date('Y-m-d', strtotime($project['due_date']));
+
+            // if set to complete and if planned date and due date are in the future change planned_date to today
+            if (($statusId == 4) && (strtotime($today) < strtotime($plannedDate)) && (strtotime($today) < strtotime($dueDate))) {
+                $projectsModel->updateProject($projectUuid, $this->view_data["userUuid"], [
+                    'project_status'    => $statusId,
+                    'planned_date'      => $today
+                ]);
+            } else {
+                $projectsModel->updateProject($projectUuid, $this->view_data["userUuid"], [
+                    'project_status'    => $statusId
+                ]);
+            }
 
             header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(['status' => 'ok']);
+            echo json_encode(['status' => 'ok', 'projectName' => $project['title']]);
         } else {
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode(['status' => 'nok']);

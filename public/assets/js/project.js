@@ -3,6 +3,7 @@ $(document).ready(function () {
         autoclose: true,
         todayHighlight: true,
         format: "dd-mm-yyyy",
+        weekStart: 1,
     });
 
     // Populate the date fields if possible
@@ -39,12 +40,31 @@ function saveProject() {
             dataType: "JSON",
             success: function (data) {
                 if (data.status == "ok") {
-                    if ($("#prevPage").val() == "dashboard") {
-                        window.location.href =
-                            "/dashboard/home?dateInput=" +
-                            $("#dateInput").val();
+                    // If project is set to completed show alert asking if hours have been logged
+                    if (data.action == "edit" && $("#status").val() == 4) {
+                        alertify.alert(
+                            "Make sure you have logged your time for project: <b>" +
+                                data.projectName +
+                                "</b>",
+                            function () {
+                                if ($("#prevPage").val() == "dashboard") {
+                                    window.location.href =
+                                        "/dashboard/home?dateInput=" +
+                                        $("#dateInput").val();
+                                } else {
+                                    window.location.href =
+                                        "/dashboard/allProjects";
+                                }
+                            }
+                        );
                     } else {
-                        window.location.href = "/dashboard/allProjects";
+                        if ($("#prevPage").val() == "dashboard") {
+                            window.location.href =
+                                "/dashboard/home?dateInput=" +
+                                $("#dateInput").val();
+                        } else {
+                            window.location.href = "/dashboard/allProjects";
+                        }
                     }
                 } else {
                     Object.keys(data.errors).forEach(function (key) {

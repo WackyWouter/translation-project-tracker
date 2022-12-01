@@ -8,6 +8,7 @@
                 autoclose: true,
                 todayHighlight: true,
                 format: "dd-mm-yyyy",
+                weekStart: 1,
             });
             $("#datepicker-popup").datepicker("update", date);
         }
