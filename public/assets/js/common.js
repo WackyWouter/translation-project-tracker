@@ -167,7 +167,19 @@ function updateStatus(projectUuid, statusId) {
         dataType: "JSON",
         success: function (data) {
             if (data.status == "ok") {
-                window.location.reload();
+                // If project is set to completed show alert asking if hours have been logged
+                if (statusId == 4) {
+                    alertify.alert(
+                        "Make sure you have logged your time for project: <b>" +
+                            data.projectName +
+                            "</b>",
+                        function () {
+                            window.location.reload();
+                        }
+                    );
+                } else {
+                    window.location.reload();
+                }
             } else {
                 alertify.alert(
                     "Something has gone wrong. Please try again later."
