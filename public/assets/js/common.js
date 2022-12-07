@@ -53,7 +53,7 @@ alertify.defaults = {
     autoReset: true,
     basic: false,
     closable: true,
-    closableByDimmer: true,
+    closableByDimmer: false,
     invokeOnCloseOff: false,
     frameless: false,
     defaultFocusOff: false,
