@@ -13,6 +13,9 @@
             $("#datepicker-popup").datepicker("update", date);
         }
 
+        $.fn.dataTable.moment("DD-MM-YYYY");
+        $.fn.dataTable.moment("DD-MM-YYYY HH:mm");
+
         $("#uncompletedProjects").DataTable({
             aLengthMenu: [
                 [5, 10, 15, -1],
