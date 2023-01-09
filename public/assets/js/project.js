@@ -6,20 +6,28 @@ $(document).ready(function () {
         weekStart: 1,
     });
 
+    const today = new Date();
+
     // Populate the date fields if possible
     if ($("#oldStartDate").val().trim().length > 0) {
         const startDate = new Date(Date.parse($("#oldStartDate").val()));
         $("#start-datepicker-popup").datepicker("update", startDate);
+    } else {
+        $("#start-datepicker-popup").datepicker("update", today);
     }
 
     if ($("#oldDueDate").val().trim().length > 0) {
         const dueDate = new Date(Date.parse($("#oldDueDate").val()));
         $("#due-datepicker-popup").datepicker("update", dueDate);
+    } else {
+        $("#due-datepicker-popup").datepicker("update", today);
     }
 
     if ($("#oldPlannedDate").val().trim().length > 0) {
         const plannedDate = new Date(Date.parse($("#oldPlannedDate").val()));
         $("#planned-datepicker-popup").datepicker("update", plannedDate);
+    } else {
+        $("#planned-datepicker-popup").datepicker("update", today);
     }
 });
 
