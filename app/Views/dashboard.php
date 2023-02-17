@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="col-lg-4 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Statistics</h4>
@@ -47,7 +47,49 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 grid-margin stretch-card">
+                        <div class="col-lg-4 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-center-bs">
+                                        <h4 class="card-title">TODO List</h4>
+                                        <i class="mdi mdi-plus todo-icon text-success" onclick="addTodoItem()"></i>
+                                    </div>
+
+                                    <div class="row">
+                                        <div id="todoList">
+                                            <input type="hidden" id="newItemCounter" value="0">
+                                            <input type="hidden" id="itemCounter" value="<?php echo count($todoLists) ?>">
+                                            <?php foreach ($todoLists as $index => $todoListItem) { ?>
+                                                <div class="d-flex flex-center" id="todoListItem<?php echo $index ?>">
+                                                    <div class="form-check form-check-flat form-check-primary todoListDiv">
+                                                        <input type="hidden" class="todoItemUuid" value="<?php echo $todoListItem['uuid'] ?>">
+
+                                                        <?php if ($todoListItem['done']) { ?>
+                                                            <label class="form-check-label todo-done ">
+                                                                <input type="checkbox" checked class="form-check-input todoCheckbox"> <?php echo $todoListItem['name'] ?>
+                                                                <i class="input-helper"></i>
+                                                            </label>
+                                                        <?php } else { ?>
+                                                            <label class="form-check-label text-white">
+                                                                <input type="checkbox" class="form-check-input todoCheckbox"> <?php echo $todoListItem['name'] ?>
+                                                                <i class="input-helper"></i>
+                                                            </label>
+                                                        <?php } ?>
+
+                                                    </div>
+
+                                                    <i class="mdi mdi-close todo-icon text-danger" onclick="deleteTodoItem('<?php echo $todoListItem['uuid'] ?>', <?php echo $index ?>)"></i>
+                                                </div>
+
+
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
                                     <form action="/dashboard/home" method="get" id="dateForm">
