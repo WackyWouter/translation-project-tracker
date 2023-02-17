@@ -52,6 +52,9 @@ $routes->group('/dashboard', ["filter" => "authenticate"], function ($routes) {
     $routes->get('editProject/(:segment)', 'Projects::editProject/$1', ['as' => 'editProject']);
     $routes->post('saveProject', 'Projects::saveProject', ['as' => 'saveProject']);
     $routes->get('updateStatus', 'Projects::updateStatus', ['as' => 'updateStatus']);
+    $routes->get('updateTODOStatus', 'Dashboard::updateTODOItemStatus', ['as' => 'updateTODOStatus']);
+    $routes->get('deleteTodoItem', 'Dashboard::deleteTODOItem', ['as' => 'deleteTodoItem']);
+    $routes->get('saveNewTodoItem', 'Dashboard::saveNewTODOItem', ['as' => 'saveNewTodoItem']);
     $routes->get('deleteProject', 'Projects::deleteProject', ['as' => 'deleteProject']);
 });
 $routes->group('/account', ["filter" => "authenticate"], function ($routes) {

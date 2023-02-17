@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ProjectsModel;
 use App\Models\StatusModel;
+use App\Models\TodoListsModel;
 
 class Dashboard extends BaseController
 {
@@ -54,7 +55,11 @@ class Dashboard extends BaseController
         $statusModel = model(StatusModel::class);
         $statusses = $statusModel->getAllStatuses();
 
+        $todoListsModel = model(TodoListsModel::class);
+        $todoLists = $todoListsModel->getTodoListsByDate($date, $this->view_data["userUuid"]);
+
         $this->view_data['statusses'] = $statusses;
+        $this->view_data['todoLists'] = $todoLists;
         $this->view_data['uncompletedProjects'] = $uncompletedProjects;
         $this->view_data['completedProjects'] = $completedProjects;
         $this->view_data['date'] = $date;
@@ -76,6 +81,70 @@ class Dashboard extends BaseController
         $this->view_data['footerBar'] = $footerBar;
 
         return view('dashboard', $this->view_data);
+    }
+
+
+    public function updateTODOItemStatus()
+    {
+        $todoItemUuid = $this->request->getGet('uuid');
+        $done = $this->request->getGet('done');
+
+        if ($todoItemUuid) {
+
+            $todoListsModel = model(TodoListsModel::class);
+            $todoListsModel->updateTodoList($todoItemUuid, ['done' => $done]);
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'ok']);
+        } else {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'nok']);
+        }
+    }
+
+    public function deleteTODOItem()
+    {
+        $todoItemUuid = $this->request->getGet('uuid');
+
+        if ($todoItemUuid) {
+            $todoListsModel = model(TodoListsModel::class);
+            $todoListsModel->deleteTodo($todoItemUuid, $this->view_data["userUuid"]);
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'ok']);
+        } else {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'nok']);
+        }
+    }
+
+    public function saveNewTODOItem()
+    {
+        $name = $this->request->getGet('name');
+        $date = $this->request->getGet('date');
+
+        if ($name && $date) {
+            helper('usefull');
+            $uuid = generateUuid(); // Can be found in Helpers/usefull_helper
+            $todoListsModel = model(TodoListsModel::class);
+            $id = $todoListsModel->insertTodoList([
+                'uuid' => $uuid,
+                'name' => $name,
+                'date' => $date,
+                'user_uuid' => $this->view_data["userUuid"]
+            ]);
+
+            if ($id) {
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(['status' => 'ok', 'uuid' => $uuid]);
+            } else {
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(['status' => 'nok']);
+            }
+        } else {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'nok']);
+        }
     }
 
     public function allProjects()

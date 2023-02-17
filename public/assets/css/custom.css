@@ -7,6 +7,19 @@
     position: relative;
 }
 
+.flex-center {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-center-bs {
+    justify-content: space-between;
+    align-items: baseline;
+}
+.flex-gap-20 {
+    gap: 20px;
+}
+
 .underline::before {
     content: "";
     position: absolute;
@@ -163,6 +176,11 @@ body,
     font-size: 20px !important;
 }
 
+.todo-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
 .custom-icon-btn {
     padding: 0.75rem 0.375rem;
     font-size: 20px;
@@ -297,6 +315,10 @@ select.form-control {
     margin-bottom: 0;
 }
 
+.no-mb {
+    margin-bottom: 0;
+}
+
 .time-box {
     display: flex;
     align-items: baseline;
@@ -306,4 +328,8 @@ select.form-control {
 select.is-invalid {
     border-style: solid;
     border-width: 1px;
+}
+
+.todo-done {
+    text-decoration: line-through !important;
 }
