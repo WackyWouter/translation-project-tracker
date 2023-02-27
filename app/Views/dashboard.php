@@ -13,7 +13,9 @@
                             <button class="btn btn-outline-warning custom-icon-btn" onclick="moveOneDay('backward')">
                                 <i class="mdi mdi-chevron-left text-warning"></i>
                             </button>
-                            <h3 class="page-title"><?php echo $date == date('Y-m-d') ? 'Today' : date('l, jS F Y', strtotime($date)) ?></h3>
+                            <div>
+                                <h3 class="page-title"><?php echo $date == date('Y-m-d') ? 'Today' : date('l, jS F Y', strtotime($date)) ?></h3>
+                            </div>
                             <button class="btn btn-outline-warning custom-icon-btn" onclick="moveOneDay('forward')">
                                 <i class="mdi mdi-chevron-right text-warning"></i>
                             </button>
