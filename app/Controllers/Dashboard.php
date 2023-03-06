@@ -24,6 +24,9 @@ class Dashboard extends BaseController
         $projectsModel = model(ProjectsModel::class);
         $uncompletedProjects = $projectsModel->getProjectsByDate($this->view_data["userUuid"], $date, false);
         $completedProjects = $projectsModel->getProjectsByDate($this->view_data["userUuid"], $date, true);
+        $monthStat = $projectsModel->getMonthlyWordCount($date, $this->view_data['userUuid']);
+
+        $this->view_data['monthWC'] = is_null($monthStat['total_word_count']) ? 0 : $monthStat['total_word_count'];
 
         $projects = array_merge($uncompletedProjects, $completedProjects);
 

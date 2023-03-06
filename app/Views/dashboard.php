@@ -41,6 +41,11 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-6">
+                                            <p><?php echo date('F', strtotime($date)) ?> Word Count: <span class="text-primary"><?php echo $monthWC ?></span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-12">
                                             <p>Language Percentage: <span><?php echo $langPercentage ?></span></p>
                                         </div>

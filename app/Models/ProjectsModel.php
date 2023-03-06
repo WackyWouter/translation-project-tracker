@@ -91,4 +91,15 @@ class ProjectsModel extends Model
 
         return $query->getResultArray();
     }
+
+    function getMonthlyWordCount($date, $userUuid)
+    {
+        $query = $this->db->table($this->table)
+            ->select('DATE_FORMAT(planned_date, "%m-%Y") as month, sum(word_count) as total_word_count')
+            ->where('user_uuid =',  $userUuid)
+            ->where('DATE_FORMAT(planned_date, "%m-%Y") =', date('m-Y', strtotime($date)))
+            ->get();
+
+        return $query->getRowArray();
+    }
 }
