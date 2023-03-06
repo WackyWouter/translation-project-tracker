@@ -49,8 +49,8 @@
     color: #0d6efd;
 }
 
-.table-white>tbody>tr:nth-of-type(odd)>*,
-.table-white>tbody>tr:nth-of-type(even)>* {
+.table-white > tbody > tr:nth-of-type(odd) > *,
+.table-white > tbody > tr:nth-of-type(even) > * {
     --bs-table-accent-bg: rgba(0, 0, 0, 0.05);
     color: white;
 }
@@ -74,10 +74,28 @@ body,
     overflow: visible;
 }
 
-.datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td:hover,
-.datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td:hover,
-.datepicker.datepicker-dropdown .datepicker-days table.table-condensed thead tr th.datepicker-switch:hover,
-.datepicker.datepicker-inline .datepicker-days table.table-condensed thead tr th.datepicker-switch:hover,
+.datepicker.datepicker-dropdown
+    .datepicker-days
+    table.table-condensed
+    tbody
+    td:hover,
+.datepicker.datepicker-inline
+    .datepicker-days
+    table.table-condensed
+    tbody
+    td:hover,
+.datepicker.datepicker-dropdown
+    .datepicker-days
+    table.table-condensed
+    thead
+    tr
+    th.datepicker-switch:hover,
+.datepicker.datepicker-inline
+    .datepicker-days
+    table.table-condensed
+    thead
+    tr
+    th.datepicker-switch:hover,
 .datepicker .next:hover,
 .datepicker .prev:hover,
 .datepicker tfoot tr th:hover {
@@ -95,13 +113,31 @@ body,
     color: #ffffff !important;
 }
 
-.datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day.today,
-.datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.day.today {
+.datepicker.datepicker-dropdown
+    .datepicker-days
+    table.table-condensed
+    tbody
+    td.day.today,
+.datepicker.datepicker-inline
+    .datepicker-days
+    table.table-condensed
+    tbody
+    td.day.today {
     color: #8f5fe8 !important;
 }
 
-.datepicker.datepicker-dropdown .datepicker-days table.table-condensed thead tr th.datepicker-switch,
-.datepicker.datepicker-inline .datepicker-days table.table-condensed thead tr th.datepicker-switch {
+.datepicker.datepicker-dropdown
+    .datepicker-days
+    table.table-condensed
+    thead
+    tr
+    th.datepicker-switch,
+.datepicker.datepicker-inline
+    .datepicker-days
+    table.table-condensed
+    thead
+    tr
+    th.datepicker-switch {
     color: #0d6efd !important;
 }
 
@@ -109,8 +145,16 @@ body,
     height: 100%;
 }
 
-.datepicker.datepicker-dropdown .datepicker-days table.table-condensed tbody td.day.active,
-.datepicker.datepicker-inline .datepicker-days table.table-condensed tbody td.day.active {
+.datepicker.datepicker-dropdown
+    .datepicker-days
+    table.table-condensed
+    tbody
+    td.day.active,
+.datepicker.datepicker-inline
+    .datepicker-days
+    table.table-condensed
+    tbody
+    td.day.active {
     color: #0d6efd !important;
     font-weight: 600;
 }
@@ -163,7 +207,7 @@ body,
     align-items: center;
 }
 
-.date-buttons>div {
+.date-buttons > div {
     text-align: center;
     min-width: 300px;
 }
@@ -256,6 +300,19 @@ select.form-control {
 @media (min-width: 350px) {
     .d-xs-block {
         display: block !important;
+    }
+}
+
+@media (max-width: 460px) {
+    .date-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-header {
+        flex-direction: column;
+        gap: 20px;
     }
 }
 
