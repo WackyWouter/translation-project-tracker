@@ -259,6 +259,19 @@ select.form-control {
     }
 }
 
+@media (max-width: 460px) {
+    .date-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
 @media (max-width: 992px) {
     .mt-lg-only {
         margin-top: 10px !important;
