@@ -352,3 +352,40 @@ select.is-invalid {
 .todo-done {
     text-decoration: line-through !important;
 }
+
+#calendar {
+    color: #333333;
+    height: 100%;
+}
+
+.toastui-calendar-timegrid {
+    height: 100%;
+    /* fit-content or auto(IE) */
+    min-height: fit-content;
+}
+
+/* Declared class twice to increase the specificity. */
+/* You can use the `!important` but not recommended */
+.toastui-calendar-panel:not(.toastui-calendar-time).toastui-calendar-panel:not(
+        .toastui-calendar-time
+    ) {
+    overflow-y: hidden;
+}
+
+.toastui-calendar-panel.toastui-calendar-panel {
+    overflow-y: hidden;
+}
+
+.flex-con {
+    display: flex;
+    gap: 20px;
+}
+
+.flex-align-center {
+    display: flex;
+    align-items: center;
+}
+
+#monthDisplay {
+    margin: 0;
+}

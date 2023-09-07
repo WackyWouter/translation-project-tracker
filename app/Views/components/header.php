@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="<?php echo base_url("/assets/css/bootstrap.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/css/alertify/alertify.min.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/css/alertify/bootstrap.min.css") . "?token=" . CONF_asset_version; ?>" />
+    <link rel="stylesheet" href="<?php echo base_url("/assets/css/toastui-calendar/tui-time-picker.css") . "?token=" . CONF_asset_version; ?>" />
+    <link rel="stylesheet" href="<?php echo base_url("/assets/css/toastui-calendar/tui-date-picker.css") . "?token=" . CONF_asset_version; ?>" />
+    <link rel="stylesheet" href="<?php echo base_url("/assets/css/toastui-calendar/toastui-calendar.min.css") . "?token=" . CONF_asset_version; ?>" />
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo base_url("/assets/css/custom.css") . "?token=" . CONF_asset_version; ?>" />

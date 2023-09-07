@@ -10,6 +10,9 @@
         </ul>
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-settings d-none d-xs-block border-left ">
+                <a href="/calendar" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'calendar') ? 'active' : '' ?>">Calendar</a>
+            </li>
+            <li class="nav-item nav-settings d-none d-xs-block border-left ">
                 <a href="/dashboard/home" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'dashboard') ? 'active' : '' ?>">Dashboard</a>
             </li>
             <li class="nav-item nav-settings d-none d-xs-block border-left">

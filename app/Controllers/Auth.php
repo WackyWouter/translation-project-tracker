@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CalendarsModel;
 use App\Models\UsersModel;
 
 class Auth extends BaseController
@@ -144,6 +145,15 @@ class Auth extends BaseController
                 'email' => $email,
                 'password' => password_hash($password, PASSWORD_DEFAULT),
                 'last_login' => date('Y-m-d H:i:s')
+            ]);
+
+            // insert a basic calendar for the user 
+            $calendarsModal = model(CalendarsModel::class);
+            $uuid4_calendar = generateUuid();
+            $calendarsModal->insertCalendar([
+                'uuid' => $uuid4_calendar,
+                'user_uuid' => $uuid4,
+                'name' => 'Work'
             ]);
 
             // create session

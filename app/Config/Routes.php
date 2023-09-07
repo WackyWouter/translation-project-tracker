@@ -64,6 +64,12 @@ $routes->group('/account', ["filter" => "authenticate"], function ($routes) {
     $routes->get('changePassword', 'Account::changePassword', ['as' => 'changePassword']);
     $routes->post('savePassword', 'Account::savePassword', ['as' => 'savePassword']);
 });
+$routes->group('/calendar', ["filter" => "authenticate"], function ($routes) {
+    $routes->get('', 'Calendar::index', ['as' => 'calendar']);
+    $routes->post('createEvent', 'Calendar::createEvent', ['as' => 'createEvent']);
+    $routes->post('updateEvent', 'Calendar::updateEvent', ['as' => 'updateEvent']);
+    $routes->post('deleteEvent', 'Calendar::deleteEvent', ['as' => 'deleteEvent']);
+});
 
 
 /*
