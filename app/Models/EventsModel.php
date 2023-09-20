@@ -54,4 +54,15 @@ class EventsModel extends Model
 
         return $query->getRowArray();
     }
+
+    function getEventByProjectUuid($projectUuid, $userUuid)
+    {
+        $query = $this->db->table($this->table)
+            ->select('uuid, user_uuid, calendar_uuid, project_uuid, title, body, is_all_day, start, end, location, state, is_read_only, is_private, color, background_color, drag_bg_color, border_color, custom_style, adddate, moddate')
+            ->where('user_uuid =', $userUuid)
+            ->where('project_uuid =', $projectUuid)
+            ->get(1);
+
+        return $query->getRowArray();
+    }
 }

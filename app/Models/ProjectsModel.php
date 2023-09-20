@@ -12,6 +12,7 @@ class ProjectsModel extends Model
     function insertProject($data)
     {
         $this->db->table($this->table)->insert($data);
+        return $this->db->insertID();
     }
 
     function updateProject($projectUuid, $userUuid, $data)

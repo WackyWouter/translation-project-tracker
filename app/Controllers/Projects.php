@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CalendarsModel;
 use App\Models\ProjectsModel;
 use App\Models\StatusModel;
 
@@ -56,6 +57,10 @@ class Projects extends BaseController
         $prevPage = $this->request->getGet('prevPage');
         $dateInput = $this->request->getGet('dateInput');
 
+        $calendarModel = model(CalendarsModel::class);
+        $calendars = $calendarModel->getCalendarsByUserUuid($this->view_data["userUuid"]);
+
+        $this->view_data['calendars'] = $calendars;
         $this->view_data['statusses'] = $statusses;
         $this->view_data['prevPage'] = $prevPage;
         $this->view_data['dateInput'] = $dateInput;
@@ -85,14 +90,20 @@ class Projects extends BaseController
 
         $statusses = $statusModel->getAllStatuses();
         $project = $projectsModel->getProjectByUuid($projectUuid, $this->view_data["userUuid"]);
+        $calendarModel = model(CalendarsModel::class);
+        $calendars = $calendarModel->getCalendarsByUserUuid($this->view_data["userUuid"]);
+        $eventsCalendar = model(EventsModel::class);
+        $event = $eventsCalendar->getEventByProjectUuid($projectUuid, $this->view_data["userUuid"]);
 
         $prevPage = $this->request->getGet('prevPage');
         $dateInput = $this->request->getGet('dateInput');
 
         $this->view_data['statusses'] = $statusses;
         $this->view_data['project'] = $project;
+        $this->view_data['calendars'] = $calendars;
         $this->view_data['prevPage'] = $prevPage;
         $this->view_data['dateInput'] = $dateInput;
+        $this->view_data['event'] = $event;
 
         $header = view('components/header', $this->view_data);
         $this->view_data['header'] = $header;
@@ -125,14 +136,40 @@ class Projects extends BaseController
         $wordCount = $this->request->getPost('wordCount');
         $plannedDate = trim($this->request->getPost('plannedDate'));
 
+        $calendarEventCheck = trim($this->request->getPost('calendarEventCheck')) == 'on';
+        $eventTitle = trim($this->request->getPost('eventTitle'));
+        $eventLocation = trim($this->request->getPost('eventLocation'));
+        $eventId = $this->request->getPost('eventId');
+        $startEvent = trim($this->request->getPost('startEvent'));
+        $startEventHour = $this->request->getPost('startEventHour');
+        $startEventMin = $this->request->getPost('startEventMin');
+        $endEvent = trim($this->request->getPost('endEvent'));
+        $endEventHour = $this->request->getPost('endEventHour');
+        $endEventMin = $this->request->getPost('endEventMin');
+        $eventCalendarId = $this->request->getPost('eventCalendar');
+        $eventAllDay = $this->request->getPost('allDayCheck') == 'on';
+
         // Formulate date strings
         $startHour = $startHour == '' ? '07' : $startHour;
         $startMin = $startMin == '' ? '00' : $startMin;
         $dueHour = $dueHour == '' ? '17' : $dueHour;
         $dueMin = $dueMin == '' ? '30' : $dueMin;
+        $startEventHour = $startEventHour == '' ? '07' : $startEventHour;
+        $startEventMin = $startEventMin == '' ? '00' : $startEventMin;
+        $endEventHour = $endEventHour == '' ? '17' : $endEventHour;
+        $endEventMin = $endEventMin == '' ? '30' : $endEventMin;
+
+        if ($eventAllDay) {
+            $startEventHour = '00';
+            $startEventMin = '00';
+            $endEventHour = '00';
+            $endEventMin = '00';
+        }
 
         $start = date('Y-m-d H:i:s', strtotime($startDate . ' ' . $startHour . ':' . $startMin));
         $due = date('Y-m-d H:i:s', strtotime($dueDate . ' ' . $dueHour . ':' . $dueMin));
+        $startEventYmd = date('Y-m-d H:i:s', strtotime($startEvent . ' ' . $startEventHour . ':' . $startEventMin));
+        $endEventYmd = date('Y-m-d H:i:s', strtotime($endEvent . ' ' . $endEventHour . ':' . $endEventMin));
         $planned = date('Y-m-d H:i:s', strtotime($plannedDate));
 
         $errorFound = false;
@@ -200,19 +237,65 @@ class Projects extends BaseController
             $errors['.plannedDateField'] = 'Planned Date needs to be in dd-mm-yyyy format.';
         }
 
+        // Do event validation if calendar event is checked
+        if ($calendarEventCheck) {
+            // Check that event title is not empty
+            if (strlen($eventTitle) == 0) {
+                $errorFound = true;
+                $errors['.eventTitleField'] = 'Event Title can not be empty.';
+            }
+
+            // Check that the date is in a valid format
+            if (!$this->validateDate($startEvent)) {
+                $errorFound = true;
+                $errors['.startEventField'] = 'Start Event needs to be in dd-mm-yyyy format.';
+            }  // Check time is formatted properly
+            else if (!preg_match("/^(?:2[0-4]|[01][0-9]|10):([0-5][0-9])$/", $startEventHour . ':' . $startEventMin)) {
+                $errorFound = true;
+                $errors['.startEventField'] = 'Start Event Time needs to be in HH:MM format.';
+            }
+
+            // Check that the date is in a valid format
+            if (!$this->validateDate($endEvent)) {
+                $errorFound = true;
+                $errors['.endEventField'] = 'End Event needs to be in dd-mm-yyyy format.';
+            }  // Check time is formatted properly
+            else  if (!preg_match("/^(?:2[0-4]|[01][0-9]|10):([0-5][0-9])$/", $endEventHour . ':' . $endEventMin)) {
+                $errorFound = true;
+                $errors['.endEventField'] = 'End Event Time needs to be in HH:MM format.';
+            }
+
+            if (!$eventCalendarId) {
+                $errorFound = true;
+                $errors['.eventCalendarField'] = 'A Calendar needs to be selected.';
+            }
+
+            $calendarsModel = model(CalendarsModel::class);
+            $calendar = $calendarsModel->getCalendarByUuid($eventCalendarId, $this->view_data["userUuid"]);
+
+            // Check if the calendar exists
+            if (!$calendar) {
+                $errorFound = true;
+                $errors['.eventCalendarField'] = 'Selected calendar does not exist.';
+            }
+        }
+
+
+
         if ($errorFound) {
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode(['status' => 'nok', 'errors' => $errors]);
         } else {
+            helper('usefull');
 
             // if no id is present then is a new project
             if (strlen($projectUuid) == 0) {
                 $action = 'save';
-                helper('usefull');
 
                 $projectsModel = model(ProjectsModel::class);
+                $projectUuid = generateUuid(); // Can be found in Helpers/usefull_helper
                 $projectsModel->insertProject([
-                    'uuid'              => generateUuid(), // Can be found in Helpers/usefull_helper
+                    'uuid'              => $projectUuid,
                     'user_uuid'         => $this->view_data["userUuid"],
                     'title'             => $projectTitle,
                     'source_language'   => $sourceLang,
@@ -238,9 +321,62 @@ class Projects extends BaseController
                     'project_status'    => $status
                 ]);
             }
+            $eventsModel = model(EventsModel::class);
+            if ($calendarEventCheck) {
 
-            header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(['status' => 'ok', 'action' => $action, 'projectName' => $projectTitle]);
+
+                // UPDATE EVENT
+                if ($eventId) {
+                    $result = $eventsModel->updateEvent($eventId, $this->view_data["userUuid"], [
+                        'calendar_uuid' => $eventCalendarId,
+                        'title' => $eventTitle,
+                        // 'body' => $event->body,
+                        'is_all_day' => $eventAllDay,
+                        'start' => $startEventYmd,
+                        'END' => $endEventYmd,
+                        'location' => $eventLocation,
+                        'state' => 'Busy',
+                        'is_private' => 0,
+                        'project_uuid' => $projectUuid
+                    ]);
+                } // SAVE EVENT
+                else {
+                    $result = $eventsModel->insertEvent([
+                        'uuid' => generateUuid(),
+                        'user_uuid' => $this->view_data["userUuid"],
+                        'calendar_uuid' => $eventCalendarId,
+                        'title' => $eventTitle,
+                        // 'body' => $event->body,
+                        'is_all_day' => $eventAllDay,
+                        'start' => $startEventYmd,
+                        'END' => $endEventYmd,
+                        'location' => $eventLocation,
+                        'state' => 'Busy',
+                        'is_private' => 0,
+                        'project_uuid' => $projectUuid
+                    ]);
+                }
+
+                header('Content-Type: application/json; charset=utf-8');
+                if ($result) {
+                    echo json_encode(['status' => 'ok', 'action' => $action, 'projectName' => $projectTitle]);
+                } else {
+                    echo json_encode(['status' => 'nok']);
+                }
+            } else {
+                // Check if there was previously a event for this project which needs to be deleted now
+                header('Content-Type: application/json; charset=utf-8');
+                if ($eventId) {
+                    $result = $eventsModel->deleteEvent($eventId, $this->view_data["userUuid"]);
+                    if ($result) {
+                        echo json_encode(['status' => 'ok', 'action' => $action, 'projectName' => $projectTitle]);
+                    } else {
+                        echo json_encode(['status' => 'nok']);
+                    }
+                } else {
+                    echo json_encode(['status' => 'ok', 'action' => $action, 'projectName' => $projectTitle]);
+                }
+            }
         }
     }
 

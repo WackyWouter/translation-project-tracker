@@ -29,6 +29,64 @@ $(document).ready(function () {
     } else {
         $("#planned-datepicker-popup").datepicker("update", today);
     }
+
+    if ($("#oldStartEvent").val().trim().length > 0) {
+        const startEvent = new Date(Date.parse($("#oldStartEvent").val()));
+        $("#start-event-datepicker-popup").datepicker("update", startEvent);
+    }
+
+    if ($("#oldEndEvent").val().trim().length > 0) {
+        const endEvent = new Date(Date.parse($("#oldEndEvent").val()));
+        $("#end-event-datepicker-popup").datepicker("update", endEvent);
+    }
+
+    $("#allDayCheck").change(function (event) {
+        if ($(event.target).prop("checked")) {
+            $("#startEventHour").prop("disabled", true);
+            $("#startEventMin").prop("disabled", true);
+            $("#endEventHour").prop("disabled", true);
+            $("#endEventMin").prop("disabled", true);
+        } else {
+            $("#startEventHour").prop("disabled", false);
+            $("#startEventMin").prop("disabled", false);
+            $("#endEventHour").prop("disabled", false);
+            $("#endEventMin").prop("disabled", false);
+        }
+    });
+
+    $("#calendarEventCheck").change(function (event) {
+        if ($(event.target).prop("checked")) {
+            $("#eventCalendarForm").removeClass("d-none");
+
+            // Populate event details only if we do not have an event id
+            if ($("#eventId").val().trim().length == 0) {
+                $("#eventTitle").val($("#projectTitle").val());
+                $("#startEvent").val($("#startDate").val());
+                $("#startEventHour").val($("#startHour").val());
+                $("#startEventMin").val($("#startMin").val());
+                $("#endEvent").val($("#dueDate").val());
+                $("#endEventHour").val($("#dueHour").val());
+                $("#endEventMin").val($("#dueMin").val());
+
+                var startEvent = $("#startEvent").val().split("-");
+                startEvent = new Date(
+                    startEvent[2],
+                    startEvent[1] - 1,
+                    startEvent[0]
+                );
+                $("#start-event-datepicker-popup").datepicker(
+                    "update",
+                    startEvent
+                );
+
+                var endEvent = $("#endEvent").val().split("-");
+                endEvent = new Date(endEvent[2], endEvent[1] - 1, endEvent[0]);
+                $("#end-event-datepicker-popup").datepicker("update", endEvent);
+            }
+        } else {
+            $("#eventCalendarForm").addClass("d-none");
+        }
+    });
 });
 
 function saveProject() {
@@ -41,55 +99,73 @@ function saveProject() {
     $(".main-error").html("");
 
     if (validateProject()) {
-        $.ajax({
-            type: "POST",
-            url: "/dashboard/saveProject",
-            data: data,
-            dataType: "JSON",
-            success: function (data) {
-                if (data.status == "ok") {
-                    // If project is set to completed show alert asking if hours have been logged
-                    if (data.action == "edit" && $("#status").val() == 4) {
-                        alertify.alert(
-                            "Make sure you have logged your time for project: <b>" +
-                                data.projectName +
-                                "</b>",
-                            function () {
-                                if ($("#prevPage").val() == "dashboard") {
-                                    window.location.href =
-                                        "/dashboard/home?dateInput=" +
-                                        $("#dateInput").val();
-                                } else {
-                                    window.location.href =
-                                        "/dashboard/allProjects";
-                                }
-                            }
-                        );
-                    } else {
-                        if ($("#prevPage").val() == "dashboard") {
-                            window.location.href =
-                                "/dashboard/home?dateInput=" +
-                                $("#dateInput").val();
-                        } else {
-                            window.location.href = "/dashboard/allProjects";
-                        }
-                    }
-                } else {
-                    Object.keys(data.errors).forEach(function (key) {
-                        $(key).find(".invalid-feedback").html(data.errors[key]);
-                        $(key).find("input").addClass("is-invalid");
-                        $(key).find("select").addClass("is-invalid");
-                        $(key).find(".row").addClass("is-invalid");
-                    });
-                }
-            },
-            error: function (data) {
-                $(".main-error").html(
-                    "Something has gone wrong. Please try again later."
-                );
-            },
-        });
+        // Check if we need to give event deletion warning
+        const calendarEvent = $("#calendarEventCheck").prop("checked");
+        const eventId = $("#eventId").val();
+
+        // If calendar event is unchecked but we have an event id give event deletion warning
+        if (!calendarEvent && eventId) {
+            alertify.confirm(
+                "You will be deleting the event associated with this project. Are you sure you want to continue?",
+                function () {
+                    sendSaveProjectRequest(data);
+                },
+                function () {}
+            );
+        } else {
+            sendSaveProjectRequest(data);
+        }
     }
+}
+
+function sendSaveProjectRequest(data) {
+    $.ajax({
+        type: "POST",
+        url: "/dashboard/saveProject",
+        data: data,
+        dataType: "JSON",
+        success: function (data) {
+            if (data.status == "ok") {
+                // If project is set to completed show alert asking if hours have been logged
+                if (data.action == "edit" && $("#status").val() == 4) {
+                    alertify.alert(
+                        "Make sure you have logged your time for project: <b>" +
+                            data.projectName +
+                            "</b>",
+                        function () {
+                            if ($("#prevPage").val() == "dashboard") {
+                                window.location.href =
+                                    "/dashboard/home?dateInput=" +
+                                    $("#dateInput").val();
+                            } else {
+                                window.location.href = "/dashboard/allProjects";
+                            }
+                        }
+                    );
+                } else {
+                    if ($("#prevPage").val() == "dashboard") {
+                        window.location.href =
+                            "/dashboard/home?dateInput=" +
+                            $("#dateInput").val();
+                    } else {
+                        window.location.href = "/dashboard/allProjects";
+                    }
+                }
+            } else {
+                Object.keys(data.errors).forEach(function (key) {
+                    $(key).find(".invalid-feedback").html(data.errors[key]);
+                    $(key).find("input").addClass("is-invalid");
+                    $(key).find("select").addClass("is-invalid");
+                    $(key).find(".row").addClass("is-invalid");
+                });
+            }
+        },
+        error: function (data) {
+            $(".main-error").html(
+                "Something has gone wrong. Please try again later."
+            );
+        },
+    });
 }
 
 function validateProject() {
@@ -101,6 +177,8 @@ function validateProject() {
     const dueDate = $("#dueDate").val();
     const wordCount = $("#wordCount").val();
     const plannedDate = $("#plannedDate").val();
+
+    const calendarEvent = $("#calendarEventCheck").prop("checked");
 
     // Check if title is empty
     if (projectTitle.trim().length == 0) {
@@ -163,6 +241,48 @@ function validateProject() {
             .html("Word count needs to be a positive number.");
         $(".wordCountField").find("input").addClass("is-invalid");
         noErrorFound = false;
+    }
+
+    if (calendarEvent) {
+        const eventTitle = $("#eventTitle").val();
+        const startEvent = $("#startEvent").val();
+        const endEvent = $("#endEvent").val();
+        const eventCalendar = $("#eventCalendar").val();
+
+        // Check if event title is empty
+        if (eventTitle.trim().length == 0) {
+            $(".eventTitleField")
+                .find(".invalid-feedback")
+                .html("Event Title can not be empty.");
+            $(".eventTitleField").find("input").addClass("is-invalid");
+            noErrorFound = false;
+        }
+
+        // Check if date is empty and if its the correct format
+        if (startEvent.trim().length == 0 || !isValidDate(startEvent)) {
+            $(".startEventField")
+                .find(".invalid-feedback")
+                .html("Start Event needs to be in dd-mm-yyyy format.");
+            $(".startEventField").find("input").addClass("is-invalid");
+            noErrorFound = false;
+        }
+
+        // Check if date is empty and if its the correct format
+        if (endEvent.trim().length == 0 || !isValidDate(endEvent)) {
+            $(".endEventField")
+                .find(".invalid-feedback")
+                .html("End Event needs to be in dd-mm-yyyy format.");
+            $(".endEventField").find("input").addClass("is-invalid");
+            noErrorFound = false;
+        }
+
+        if (!eventCalendar) {
+            $(".eventCalendarField")
+                .find(".invalid-feedback")
+                .html("A calendar needs to be selected.");
+            $(".eventCalendarField").find("input").addClass("is-invalid");
+            noErrorFound = false;
+        }
     }
 
     return noErrorFound;

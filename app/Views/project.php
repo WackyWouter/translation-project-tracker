@@ -183,6 +183,16 @@
                                                         <span class="invalid-feedback"></span>
                                                     </div>
                                                 </div>
+                                                <div class="form-group row calendarEventField">
+                                                    <label class="col-sm-4 col-form-label flex-align-center mt-2">Calendar Event</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="form-check form-check-flat form-check-primary">
+                                                            <label class="form-check-label">
+                                                                <input type="checkbox" class="form-check-input" id="calendarEventCheck" <?php echo isset($event['uuid']) ? 'checked' : ''; ?> name="calendarEventCheck">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group row plannedDateField">
@@ -201,6 +211,161 @@
                                                         </div>
                                                         <span class="invalid-feedback"></span>
                                                         <small class="text-muted">This date determines on which date it shows up on the dashboard.</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="eventCalendarForm" class="<?php echo isset($event['uuid']) ? '' : 'd-none'; ?>">
+                                            <input type="hidden" id="eventId" name="eventId" value="<?php echo isset($event['uuid']) ? $event['uuid'] : ''; ?>">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row eventTitleField">
+                                                        <label class="col-sm-4 col-form-label">Event Title<span style="color:red">*</span></label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" id="eventTitle" name="eventTitle" class="form-control" value="<?php echo isset($event['title']) ? $event['title'] : ''; ?>" />
+                                                            <span class="invalid-feedback"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row allDayField">
+                                                        <label class="col-sm-4 col-form-label flex-align-center mt-2">All Day</label>
+                                                        <div class="col-sm-8">
+                                                            <div class="form-check form-check-flat form-check-primary">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input" id="allDayCheck" <?php echo isset($event['is_all_day']) ? 'checked' : ''; ?> name="allDayCheck">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row startEventField">
+                                                        <label class="col-sm-4 col-form-label">Start Event<span style="color:red">*</span></label>
+                                                        <div class="col-sm-8">
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <input type="hidden" id="oldStartEvent" name="oldStartEvent" class="form-control" value="<?php echo isset($event['start']) ? date('Y-m-d', strtotime($event['start'])) : ''; ?>">
+                                                                    <div id="start-event-datepicker-popup" class="input-group date datepicker no-padding">
+                                                                        <input type="text" id="startEvent" name="startEvent" class="form-control">
+                                                                        <span class=" input-group-addon input-group-append border-left">
+                                                                            <span class="mdi mdi-calendar input-group-text"></span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 mt-lg-only time-box">
+                                                                    <?php
+                                                                    $startEventHour = isset($event['start']) ? date('H', strtotime($event['start'])) : '';
+                                                                    $startEventMin = isset($event['start']) ? date('i', strtotime($event['start'])) : '';
+                                                                    ?>
+                                                                    <select name="startEventHour" id="startEventHour" class="form-control" <?php echo isset($event['is_all_day']) ? 'disabled' : ''; ?>>
+                                                                        <option <?php echo $startEventHour == '07' ? 'selected' : '' ?> value="07">07</option>
+                                                                        <option <?php echo $startEventHour == '08' ? 'selected' : '' ?> value="08">08</option>
+                                                                        <option <?php echo $startEventHour == '09' ? 'selected' : '' ?> value="09">09</option>
+                                                                        <option <?php echo $startEventHour == '10' ? 'selected' : '' ?> value="10">10</option>
+                                                                        <option <?php echo $startEventHour == '11' ? 'selected' : '' ?> value="11">11</option>
+                                                                        <option <?php echo $startEventHour == '12' ? 'selected' : '' ?> value="12">12</option>
+                                                                        <option <?php echo $startEventHour == '13' ? 'selected' : '' ?> value="13">13</option>
+                                                                        <option <?php echo $startEventHour == '14' ? 'selected' : '' ?> value="14">14</option>
+                                                                        <option <?php echo $startEventHour == '15' ? 'selected' : '' ?> value="15">15</option>
+                                                                        <option <?php echo $startEventHour == '16' ? 'selected' : '' ?> value="16">16</option>
+                                                                        <option <?php echo $startEventHour == '17' ? 'selected' : '' ?> value="17">17</option>
+                                                                        <option <?php echo $startEventHour == '18' ? 'selected' : '' ?> value="18">18</option>
+                                                                        <option <?php echo $startEventHour == '19' ? 'selected' : '' ?> value="19">19</option>
+                                                                        <option <?php echo $startEventHour == '20' ? 'selected' : '' ?> value="20">20</option>
+                                                                    </select>
+                                                                    :
+                                                                    <select name="startEventMin" id="startEventMin" class="form-control" <?php echo isset($event['is_all_day']) ? 'disabled' : ''; ?>>
+                                                                        <option <?php echo $startEventMin == '00' ? 'selected' : '' ?> value="00">00</option>
+                                                                        <option <?php echo $startEventMin == '15' ? 'selected' : '' ?> value="15">15</option>
+                                                                        <option <?php echo $startEventMin == '30' ? 'selected' : '' ?> value="30">30</option>
+                                                                        <option <?php echo $startEventMin == '45' ? 'selected' : '' ?> value="45">45</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <span class="invalid-feedback"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="form-group row endEventField">
+                                                        <label class="col-sm-4 col-form-label">End Event<span style="color:red">*</span></label>
+                                                        <div class="col-sm-8">
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <input type="hidden" id="oldEndEvent" name="oldEndEvent" class="form-control" value="<?php echo isset($event['end']) ? date('Y-m-d', strtotime($event['end'])) : ''; ?>">
+                                                                    <div id="end-event-datepicker-popup" class="input-group date datepicker no-padding">
+                                                                        <input type="text" id="endEvent" name="endEvent" class="form-control">
+                                                                        <span class=" input-group-addon input-group-append border-left">
+                                                                            <span class="mdi mdi-calendar input-group-text"></span>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 mt-lg-only time-box">
+                                                                    <?php
+                                                                    $endEventHour = isset($event['end']) ? date('H', strtotime($event['end'])) : '';
+                                                                    $endEventMin = isset($event['end']) ? date('i', strtotime($event['end'])) : '';
+                                                                    ?>
+                                                                    <select name="endEventHour" id="endEventHour" class="form-control" <?php echo isset($event['is_all_day']) ? 'disabled' : ''; ?>>
+                                                                        <option <?php echo $endEventHour == '07' ? 'selected' : '' ?> value="07">07</option>
+                                                                        <option <?php echo $endEventHour == '08' ? 'selected' : '' ?> value="08">08</option>
+                                                                        <option <?php echo $endEventHour == '09' ? 'selected' : '' ?> value="09">09</option>
+                                                                        <option <?php echo $endEventHour == '10' ? 'selected' : '' ?> value="10">10</option>
+                                                                        <option <?php echo $endEventHour == '11' ? 'selected' : '' ?> value="11">11</option>
+                                                                        <option <?php echo $endEventHour == '12' ? 'selected' : '' ?> value="12">12</option>
+                                                                        <option <?php echo $endEventHour == '13' ? 'selected' : '' ?> value="13">13</option>
+                                                                        <option <?php echo $endEventHour == '14' ? 'selected' : '' ?> value="14">14</option>
+                                                                        <option <?php echo $endEventHour == '15' ? 'selected' : '' ?> value="15">15</option>
+                                                                        <option <?php echo $endEventHour == '16' ? 'selected' : '' ?> value="16">16</option>
+                                                                        <option <?php echo $endEventHour == '17' ? 'selected' : '' ?> value="17">17</option>
+                                                                        <option <?php echo $endEventHour == '18' ? 'selected' : '' ?> value="18">18</option>
+                                                                        <option <?php echo $endEventHour == '19' ? 'selected' : '' ?> value="19">19</option>
+                                                                        <option <?php echo $endEventHour == '20' ? 'selected' : '' ?> value="20">20</option>
+                                                                    </select>
+                                                                    :
+                                                                    <select name="endEventMin" id="endEventMin" class="form-control" <?php echo isset($event['is_all_day']) ? 'disabled' : ''; ?>>
+                                                                        <option <?php echo $endEventMin == '00' ? 'selected' : '' ?> value="00">00</option>
+                                                                        <option <?php echo $endEventMin == '15' ? 'selected' : '' ?> value="15">15</option>
+                                                                        <option <?php echo $endEventMin == '30' ? 'selected' : '' ?> value="30">30</option>
+                                                                        <option <?php echo $endEventMin == '45' ? 'selected' : '' ?> value="45">45</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <span class="invalid-feedback"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row eventCalendarField">
+                                                        <label class="col-sm-4 col-form-label">Calendar<span style="color:red">*</span></label>
+                                                        <div class="col-sm-8">
+                                                            <select name="eventCalendar" id="eventCalendar" class="form-control">
+                                                                <?php foreach ($calendars as $calendar) { ?>
+                                                                    <?php if (isset($event['calendar_uuid']) && $event['calendar_uuid'] == $calendar['uuid']) { ?>
+                                                                        <option value="<?php echo $calendar['uuid'] ?>" selected><?php echo $calendar['name'] ?></option>
+                                                                    <?php } else { ?>
+                                                                        <option value="<?php echo $calendar['uuid'] ?>"><?php echo $calendar['name'] ?></option>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <span class="invalid-feedback"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row eventLocationField">
+                                                        <label class="col-sm-4 col-form-label">Event Location</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" id="eventLocation" name="eventLocation" class="form-control" value="<?php echo isset($event['location']) ? $event['location'] : ''; ?>" />
+                                                            <span class="invalid-feedback"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -335,7 +335,4 @@ function changeMonthName(calendar, months) {
             months[date.getMonth()] + " " + date.getFullYear()
         );
     }
-    // console.log("date", calendar.getDate());
-    // console.log("start-date", calendar.getDateRangeStart());
-    // console.log("end-date", calendar.getDateRangeEnd());
 }
