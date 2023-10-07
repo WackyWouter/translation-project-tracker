@@ -10,23 +10,26 @@ class CalendarsModel extends Model
 
     function insertCalendar($data)
     {
-        $this->db->table($this->table)->insert($data);
+        $result = $this->db->table($this->table)->insert($data);
+        return $result;
     }
 
     function updateCalendar($calendarUuid, $userUuid, $data)
     {
-        $this->db->table($this->table)
+        $result = $this->db->table($this->table)
             ->where('uuid', $calendarUuid)
             ->where('user_uuid', $userUuid)
             ->update($data);
+        return $result;
     }
 
     function deleteCalendar($calendarUuid, $userUuid)
     {
-        $this->db->table($this->table)
+        $result = $this->db->table($this->table)
             ->where('uuid =', $calendarUuid)
             ->where('user_uuid =', $userUuid)
             ->delete();
+        return $result;
     }
 
     function getCalendarsByUserUuid($userUuid)

@@ -17,7 +17,7 @@
                                 <input type="hidden" class="txt_csrfname" name="<?php echo csrf_token() ?>" value="<?php echo csrf_hash() ?>" />
 
                                 <div class="card-body">
-                                    <div class="page-header">
+                                    <div class="page-header calendar-page-header">
                                         <div class="flex-con">
                                             <div class="date-buttons">
                                                 <button class="btn btn-outline-warning custom-icon-btn changesCalendar" id="prev">

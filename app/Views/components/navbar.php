@@ -9,17 +9,43 @@
             </a>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item nav-settings d-none d-xs-block border-left ">
-                <a href="/calendar" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'calendar') ? 'active' : '' ?>">Calendar</a>
-            </li>
-            <li class="nav-item nav-settings d-none d-xs-block border-left ">
+
+            <li class="nav-item nav-settings  border-left ">
                 <a href="/dashboard/home" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'dashboard') ? 'active' : '' ?>">Dashboard</a>
             </li>
-            <li class="nav-item nav-settings d-none d-xs-block border-left">
+            <li class="nav-item nav-settings border-left">
                 <a href="/dashboard/allProjects" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'all projects') ? 'active' : '' ?>">All Projects</a>
             </li>
 
-            <li class="nav-item dropdown border-left">
+            <li class="nav-item dropdown border-left nav-settings ">
+                <a href="" id="calendarDropdown" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'calendar') ? 'active' : '' ?>" data-bs-toggle="dropdown">
+                    <div class="navbar-calendar">
+                        <p class="mb-0 navbar-calendar-name">
+                            Calendar
+                        </p>
+                        <i class="mdi mdi-menu-down"></i>
+                    </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="calendarDropdown">
+                    <a href="/calendar" class="dropdown-item preview-item">
+                        <div class="preview-item-content">
+                            <p class="preview-subject mb-1">
+                                View Calendar
+                            </p>
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/myCalendars" class="dropdown-item preview-item">
+                        <div class="preview-item-content">
+                            <p class="preview-subject mb-1">
+                                My Calendars
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown d-none d-sm-block border-left">
                 <a href="" id="profileDropdown" class="nav-link underline <?php echo (isset($activeNav) && $activeNav == 'profile') ? 'active' : '' ?>" data-bs-toggle="dropdown">
                     <div class="navbar-profile">
                         <div class="preview-icon bg-dark rounded-circle">

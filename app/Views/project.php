@@ -379,7 +379,11 @@
 
                                         <div class="row">
                                             <div class="col-12 text-end">
-                                                <button type="button" onclick="saveProject()" class="btn btn-outline-primary btn-fw">Save</button>
+                                                <div class="flex-buttons-row">
+                                                    <button type="button" onclick="history.back();" class="btn btn-outline-danger btn-fw">Cancel</button>
+                                                    <button type="button" onclick="saveProject()" class="btn btn-outline-primary btn-fw">Save</button>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </form>

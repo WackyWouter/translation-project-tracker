@@ -70,6 +70,13 @@ $routes->group('/calendar', ["filter" => "authenticate"], function ($routes) {
     $routes->post('updateEvent', 'Calendar::updateEvent', ['as' => 'updateEvent']);
     $routes->post('deleteEvent', 'Calendar::deleteEvent', ['as' => 'deleteEvent']);
 });
+$routes->group('/myCalendars', ["filter" => "authenticate"], function ($routes) {
+    $routes->get('', 'Calendar::myCalendars', ['as' => 'myCalendars']);
+    $routes->post('deleteCalendar', 'Calendar::deleteCalendar', ['as' => 'deleteCalendar']);
+    $routes->get('newCalendar', 'Calendar::newCalendar', ['as' => 'newCalendar']);
+    $routes->get('editCalendar/(:segment)', 'Calendar::editCalendar/$1', ['as' => 'editCalendar']);
+    $routes->post('saveCalendar', 'Calendar::saveCalendar', ['as' => 'saveCalendar']);
+});
 
 
 /*

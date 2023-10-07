@@ -32,6 +32,15 @@ class EventsModel extends Model
         return $result;
     }
 
+    function deleteEventsByCalenderUuid($calendarUuid, $userUuid)
+    {
+        $result = $this->db->table($this->table)
+            ->where('calendar_uuid =', $calendarUuid)
+            ->where('user_uuid =', $userUuid)
+            ->delete();
+        return $result;
+    }
+
     function getEventsByCalendarUuid($calendarUuid, $userUuid)
     {
         $query = $this->db->table($this->table)

@@ -20,7 +20,7 @@
                                 <i class="mdi mdi-chevron-right text-warning"></i>
                             </button>
                         </div>
-                        <a href="/dashboard/newProject?prevPage=dashboard" id="newProject" class="btn btn-outline-info btn-fw">New Project</a>
+                        <a href="/dashboard/newProject?prevPage=dashboard" id="newProject" class="btn btn-outline-success btn-fw">New Project</a>
 
                     </div>
 
@@ -111,7 +111,7 @@
                                                 </span>
 
                                             </div>
-                                            <button type="submit" id="dateSearch" class="btn btn-outline-success btn-fw">Search</button>
+                                            <button type="submit" id="dateSearch" class="btn btn-outline-info btn-fw">Search</button>
                                         </div>
 
                                     </form>

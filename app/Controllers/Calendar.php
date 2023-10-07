@@ -200,11 +200,201 @@ class Calendar extends BaseController
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode(['status' => 'nok']);
         } else {
-            helper('usefull');
 
             $eventsModel =  model(EventsModel::class);
             $result = $eventsModel->deleteEvent($eventId, $this->view_data["userUuid"]);
 
+            header('Content-Type: application/json; charset=utf-8');
+            if ($result) {
+                echo json_encode(['status' => 'ok']);
+            } else {
+                echo json_encode(['status' => 'nok']);
+            }
+        }
+    }
+
+    function myCalendars()
+    {
+        $this->view_data['activeNav'] = 'calendar';
+        $this->view_data["title"] = 'My Calendar';
+
+        $header = view('components/header', $this->view_data);
+        $this->view_data['header'] = $header;
+
+        $navbar = view('components/navbar', $this->view_data);
+        $this->view_data['navbar'] = $navbar;
+
+        $footer = view('components/footer', $this->view_data);
+        $this->view_data['footer'] = $footer;
+
+        $footerBar = view('components/footer-bar', $this->view_data);
+        $this->view_data['footerBar'] = $footerBar;
+
+        $calendarsModel = model(CalendarsModel::class);
+        $calendars = $calendarsModel->getCalendarsByUserUuid($this->view_data["userUuid"]);
+
+        $this->view_data['calendars'] = $calendars;
+        return view('my-calendar', $this->view_data);
+    }
+
+    public function deleteCalendar()
+    {
+        $calendarId = $this->request->getPost('calendarId');
+        if (!$calendarId) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'nok']);
+        } else {
+            // dont allow deletion if there is only 1 calendar left
+            $calendarModel =  model(CalendarsModel::class);
+            $calendarsLeft = $calendarModel->getCalendarsByUserUuid($this->view_data["userUuid"]);
+
+            if (count($calendarsLeft) == 1) {
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(['status' => 'nok', 'error' => 'You can not delete the last calendar. Please create a new one before deleting the old one.']);
+            } else {
+                // delete events by calendar
+                $eventsModel =  model(EventsModel::class);
+                $result = $eventsModel->deleteEventsByCalenderUuid($calendarId, $this->view_data["userUuid"]);
+
+                if (!$result) {
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(['status' => 'nok', 'error' => 'Could not delete events.']);
+                } else {
+
+                    $result = $calendarModel->deleteCalendar($calendarId, $this->view_data["userUuid"]);
+                    header('Content-Type: application/json; charset=utf-8');
+                    if ($result) {
+                        echo json_encode(['status' => 'ok']);
+                    } else {
+                        echo json_encode(['status' => 'nok', 'error' => 'Successfully deleted events but could not delete calendar.']);
+                    }
+                }
+            }
+        }
+    }
+
+    public function newCalendar()
+    {
+        $this->view_data['activeNav'] = '';
+        $this->view_data["title"] = 'New Calendar';
+
+        $header = view('components/header', $this->view_data);
+        $this->view_data['header'] = $header;
+
+        $navbar = view('components/navbar', $this->view_data);
+        $this->view_data['navbar'] = $navbar;
+
+        $footer = view('components/footer', $this->view_data);
+        $this->view_data['footer'] = $footer;
+
+        $footerBar = view('components/footer-bar', $this->view_data);
+        $this->view_data['footerBar'] = $footerBar;
+
+        return view('edit-calendar', $this->view_data);
+    }
+
+    public function editCalendar($calendarUuid)
+    {
+        $this->view_data['activeNav'] = '';
+        $this->view_data["title"] = 'Edit Calendar';
+
+        $calendarModel = model(CalendarsModel::class);
+        $calendar = $calendarModel->getCalendarByUuid($calendarUuid, $this->view_data["userUuid"]);
+        $this->view_data['calendar'] = $calendar;
+
+        $header = view('components/header', $this->view_data);
+        $this->view_data['header'] = $header;
+
+        $navbar = view('components/navbar', $this->view_data);
+        $this->view_data['navbar'] = $navbar;
+
+        $footer = view('components/footer', $this->view_data);
+        $this->view_data['footer'] = $footer;
+
+        $footerBar = view('components/footer-bar', $this->view_data);
+        $this->view_data['footerBar'] = $footerBar;
+
+        return view('edit-calendar', $this->view_data);
+    }
+
+    public function saveCalendar()
+    {
+        $calendarUuid = $this->request->getPost('calendarUuid');
+        $calendarTitle = $this->request->getPost('calendarTitle');
+        $calendarColor = $this->request->getPost('calendarColor');
+        $calendarBgColor = $this->request->getPost('calendarBgColor');
+        $calendarDragBgColor = $this->request->getPost('calendarDragBgColor');
+        $calendarBorderColor = $this->request->getPost('calendarBorderColor');
+
+        $errorsFound = false;
+        $errors = [];
+
+        if (strlen($calendarTitle) == 0) {
+            $errorsFound = true;
+            $errors['.titleField'] = 'Title can not be empty.';
+        }
+
+        if (strlen($calendarColor) == 0) {
+            $errorsFound = true;
+            $errors['.colorField'] = 'Text Colour can not be empty.';
+        } else if (substr($calendarColor, 0, 1) != '#' || strlen($calendarColor) != 7) {
+            $errorsFound = true;
+            $errors['.colorField'] = 'Invalid colour code. Hex code should be in format #FFFFFF';
+        }
+
+        if (strlen($calendarBgColor) == 0) {
+            $errorsFound = true;
+            $errors['.bgColorField'] = 'Background Colour can not be empty.';
+        } else if (substr($calendarBgColor, 0, 1) != '#' || strlen($calendarBgColor) != 7) {
+            $errorsFound = true;
+            $errors['.bgColorField'] = 'Invalid colour code. Hex code should be in format #FFFFFF';
+        }
+
+        if (strlen($calendarDragBgColor) == 0) {
+            $errorsFound = true;
+            $errors['.dragBgColorField'] = 'Drag Background Colour can not be empty.';
+        } else if (substr($calendarDragBgColor, 0, 1) != '#' || strlen($calendarDragBgColor) != 7) {
+            $errorsFound = true;
+            $errors['.dragBgColorField'] = 'Invalid colour code. Hex code should be in format #FFFFFF';
+        }
+
+        if (strlen($calendarBorderColor) == 0) {
+            $errorsFound = true;
+            $errors['.borderColorField'] = 'Border Colour can not be empty.';
+        } else if (substr($calendarBorderColor, 0, 1) != '#' || strlen($calendarBorderColor) != 7) {
+            $errorsFound = true;
+            $errors['.borderColorField'] = 'Invalid colour code. Hex code should be in format #FFFFFF';
+        }
+
+        if ($errorsFound) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['status' => 'nok', 'errors' => $errors]);
+        } else {
+            helper('usefull');
+            $calendarModel = model(CalendarsModel::class);
+
+            // if no id is present then is a new calendar
+            if (strlen($calendarUuid) == 0) {
+                $result = $calendarModel->insertCalendar([
+                    'uuid' => generateUuid(),
+                    'user_uuid' => $this->view_data["userUuid"],
+                    'name' => $calendarTitle,
+                    'color' => $calendarColor,
+                    'bg_color' => $calendarBgColor,
+                    'drag_bg_color' => $calendarDragBgColor,
+                    'border_color' => $calendarBorderColor
+                ]);
+            } else {
+                $result = $calendarModel->updateCalendar($calendarUuid, $this->view_data["userUuid"], [
+                    'name' => $calendarTitle,
+                    'color' => $calendarColor,
+                    'bg_color' => $calendarBgColor,
+                    'drag_bg_color' => $calendarDragBgColor,
+                    'border_color' => $calendarBorderColor
+                ]);
+            }
+
+            // Check if there was previously a event for this project which needs to be deleted now
             header('Content-Type: application/json; charset=utf-8');
             if ($result) {
                 echo json_encode(['status' => 'ok']);

@@ -10,7 +10,7 @@
                 <div class="content-wrapper">
                     <div class="page-header">
                         <h3 class="page-title">All Projects</h3>
-                        <a href="/dashboard/newProject?prevPage=all-projects" id="newProject" class="btn btn-outline-info btn-fw">New Project</a>
+                        <a href="/dashboard/newProject?prevPage=all-projects" id="newProject" class="btn btn-outline-success btn-fw">New Project</a>
                     </div>
 
                     <div class="row">

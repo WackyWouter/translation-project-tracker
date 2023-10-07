@@ -152,12 +152,18 @@ function sendSaveProjectRequest(data) {
                     }
                 }
             } else {
-                Object.keys(data.errors).forEach(function (key) {
-                    $(key).find(".invalid-feedback").html(data.errors[key]);
-                    $(key).find("input").addClass("is-invalid");
-                    $(key).find("select").addClass("is-invalid");
-                    $(key).find(".row").addClass("is-invalid");
-                });
+                if (data.hasOwnProperty("errors")) {
+                    Object.keys(data.errors).forEach(function (key) {
+                        $(key).find(".invalid-feedback").html(data.errors[key]);
+                        $(key).find("input").addClass("is-invalid");
+                        $(key).find("select").addClass("is-invalid");
+                        $(key).find(".row").addClass("is-invalid");
+                    });
+                } else {
+                    $(".main-error").html(
+                        "Something has gone wrong. Please try again later."
+                    );
+                }
             }
         },
         error: function (data) {

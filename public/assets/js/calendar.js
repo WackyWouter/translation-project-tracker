@@ -30,18 +30,30 @@ $(document).ready(function () {
         calendars: calendars,
         template: {
             time(event) {
-                if (event.raw.project) {
+                if (
+                    event.raw &&
+                    event.raw.hasOwnProperty("project") &&
+                    event.raw.project
+                ) {
                     return `<span style="width: 100%;text-wrap: balance;">${event.title} - [${event.raw.project}]</span>`;
                 } else {
                     return `<span style="width: 100%;text-wrap: balance;">${event.title}</span>`;
                 }
             },
             popupDetailTitle(event) {
-                if (event.raw.project) {
+                console.log(event, "title");
+                if (
+                    event.raw &&
+                    event.raw.hasOwnProperty("project") &&
+                    event.raw.project
+                ) {
                     return `<span>${event.title} - [${event.raw.project}]</span>`;
                 } else {
                     return event.title;
                 }
+            },
+            popupDetailBody(event) {
+                return event.body;
             },
             monthGridHeader(model) {
                 var day_date = parseInt(model.date.split("-")[2], 10);
@@ -289,7 +301,6 @@ function isTodayShown(calendar) {
 }
 
 function changeMonthName(calendar, months) {
-    console.log(calendar.getViewName());
     if (calendar.getViewName() == "week") {
         var start_date = new Date(calendar.getDateRangeStart().d.d);
         var end_date = new Date(calendar.getDateRangeEnd().d.d);

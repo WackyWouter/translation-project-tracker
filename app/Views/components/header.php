@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/css/vendor.bundle.base.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css") . "?token=" . CONF_asset_version; ?>" />
+    <link rel="stylesheet" href="<?php echo base_url("/assets/vendors/Coloris/src/coloris.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/css/bootstrap.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/css/alertify/alertify.min.css") . "?token=" . CONF_asset_version; ?>" />
     <link rel="stylesheet" href="<?php echo base_url("/assets/css/alertify/bootstrap.min.css") . "?token=" . CONF_asset_version; ?>" />

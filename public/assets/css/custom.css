@@ -389,3 +389,113 @@ select.is-invalid {
 #monthDisplay {
     margin: 0;
 }
+
+@media (max-width: 1110px) {
+    .calendar-page-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .calendar-page-header .flex-con,
+    .calendar-page-header .date-buttons {
+        flex-direction: column;
+    }
+    .calendar-page-header .flex-con .flex-align-center {
+        justify-content: center;
+    }
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.calendar-card-body {
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.calendar-card-body .card-title {
+    margin-bottom: 0;
+}
+
+.calendar-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.calendar-colors {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.calendar-color {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.1875rem;
+}
+
+.flex-buttons-row {
+    display: flex;
+    gap: 20px;
+    justify-content: end;
+}
+
+.clr-field {
+    width: 100%;
+}
+
+@media (max-width: 430px) {
+    .flex-buttons-row {
+        flex-direction: column;
+    }
+}
+
+.colour-column {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.color-btn {
+    cursor: pointer;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.color-btn:hover {
+    filter: brightness(0.75);
+}
+
+.suggestedColour {
+    width: auto;
+    border-radius: 0.1875rem;
+    color: #fff;
+    padding: 7.5px;
+}
+.suggestedColour.blue {
+    background-color: #0090e7;
+}
+.suggestedColour.green {
+    background-color: #00d25b;
+}
+.suggestedColour.purple {
+    background-color: #8f5fe8;
+}
+.suggestedColour.red {
+    background-color: #fc424a;
+}
+.suggestedColour.yellow {
+    background-color: #ffab00;
+}
+.suggestedColour.pink {
+    background-color: #ec0868;
+}
